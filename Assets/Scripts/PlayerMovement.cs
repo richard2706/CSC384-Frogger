@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
+    // Bounding coordinates for player movement
     private static float xMinBound;
     private static float xMaxBound;
     private static float yMinBound;
@@ -22,8 +23,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 roadExtents = transform.parent.gameObject.GetComponent<SpriteRenderer>().bounds.extents;
         xMinBound = -roadExtents.x;
         xMaxBound = roadExtents.x;
-        yMinBound = -roadExtents.y;
-        yMaxBound = roadExtents.y;
+        yMinBound = -roadExtents.y - Vector2.up.y; // Player can move along the bottom of the road
+        yMaxBound = roadExtents.y + Vector2.up.y; // Player can cross to the other side of the road
     }
 
     // Update is called once per frame
