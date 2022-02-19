@@ -14,6 +14,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private bool moveRight;
+    private bool moveLeft;
+    private bool moveUp;
+    private bool moveDown;
+
     /*
      * Called once before the game object is created. No guarantee that all other game objects exist here.
      * Should only contain code related to this game object.
@@ -34,28 +39,39 @@ public class PlayerMovement : MonoBehaviour
         yMaxBound = roadExtents.y + Vector2.up.y; // Player can cross to the other side of the road
     }
 
-    // Update is called once per frame
-    void Update()
+    // Called at regular fixed intervals
+    private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        // Execute movement (if detected in Update)
+        if (moveRight)
         {
             Vector2 newPosition = rb.position + Vector2.right;
             if (newPosition.x <= xMaxBound) rb.MovePosition(newPosition);
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (moveLeft)
         {
             Vector2 newPosition = rb.position + Vector2.left;
             if (newPosition.x >= xMinBound) rb.MovePosition(newPosition);
         }
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (moveUp)
         {
             Vector2 newPosition = rb.position + Vector2.up;
             if (newPosition.y <= yMaxBound) rb.MovePosition(newPosition);
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (moveDown)
         {
             Vector2 newPosition = rb.position + Vector2.down;
             if (newPosition.y >= yMinBound) rb.MovePosition(newPosition);
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Check for movement
+        moveRight = Input.GetKeyDown(KeyCode.D);
+        moveLeft = Input.GetKeyDown(KeyCode.A);
+        moveUp = Input.GetKeyDown(KeyCode.W);
+        moveDown = Input.GetKeyDown(KeyCode.S);
     }
 }
