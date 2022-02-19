@@ -14,11 +14,18 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    // Called once before the game object is created
+    /*
+     * Called once before the game object is created. No guarantee that all other game objects exist here.
+     * Should only contain code related to this game object.
+     */
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
 
+    // Called once before this game object is updated. All game objects will exist at this point.
+    private void Start()
+    {
         // Calculate road bounds so player cannot move outside the road area.
         Vector3 roadExtents = transform.parent.gameObject.GetComponent<SpriteRenderer>().bounds.extents;
         xMinBound = -roadExtents.x;
