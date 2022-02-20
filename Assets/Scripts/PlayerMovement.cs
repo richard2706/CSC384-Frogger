@@ -47,21 +47,25 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector2 newPosition = rb.position + Vector2.right;
             if (newPosition.x <= xMaxBound) rb.MovePosition(newPosition);
+            moveRight = false;
         }
         else if (moveLeft)
         {
             Vector2 newPosition = rb.position + Vector2.left;
             if (newPosition.x >= xMinBound) rb.MovePosition(newPosition);
+            moveLeft = false;
         }
         else if (moveUp)
         {
             Vector2 newPosition = rb.position + Vector2.up;
             if (newPosition.y <= yMaxBound) rb.MovePosition(newPosition);
+            moveUp = false;
         }
         else if (moveDown)
         {
             Vector2 newPosition = rb.position + Vector2.down;
             if (newPosition.y >= yMinBound) rb.MovePosition(newPosition);
+            moveDown = false;
         }
     }
 
@@ -69,9 +73,9 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // Check for movement
-        moveRight = Input.GetKeyDown(KeyCode.D);
-        moveLeft = Input.GetKeyDown(KeyCode.A);
-        moveUp = Input.GetKeyDown(KeyCode.W);
-        moveDown = Input.GetKeyDown(KeyCode.S);
+        if (!moveRight) moveRight = Input.GetKeyDown(KeyCode.D);
+        if (!moveLeft) moveLeft = Input.GetKeyDown(KeyCode.A);
+        if (!moveUp) moveUp = Input.GetKeyDown(KeyCode.W);
+        if (!moveDown) moveDown = Input.GetKeyDown(KeyCode.S);
     }
 }
