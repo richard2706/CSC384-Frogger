@@ -12,12 +12,12 @@ public class PlayerMovement : MonoBehaviour
     private static float yMinBound;
     private static float yMaxBound;
 
+    /* Rigidbody component of the player. */
     private Rigidbody2D rb;
 
-    private bool moveRight;
-    private bool moveLeft;
-    private bool moveUp;
-    private bool moveDown;
+    /* Vector to move by in the next call to FixedUpdate, as decied by the most recent directional
+     * input key from the player. */
+    private Vector2 nextMovement;
 
     /*
      * Called once before the game object is created. No guarantee that all other game objects exist here.
@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        nextMovement = Vector2.zero;
     }
 
     // Called once before this game object is updated. All game objects will exist at this point.
@@ -43,39 +44,22 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         // Execute movement (if detected in Update)
-        if (moveRight)
-        {
-            Vector2 newPosition = rb.position + Vector2.right;
-            if (newPosition.x <= xMaxBound) rb.MovePosition(newPosition);
-            moveRight = false;
-        }
-        else if (moveLeft)
-        {
-            Vector2 newPosition = rb.position + Vector2.left;
-            if (newPosition.x >= xMinBound) rb.MovePosition(newPosition);
-            moveLeft = false;
-        }
-        else if (moveUp)
-        {
-            Vector2 newPosition = rb.position + Vector2.up;
-            if (newPosition.y <= yMaxBound) rb.MovePosition(newPosition);
-            moveUp = false;
-        }
-        else if (moveDown)
-        {
-            Vector2 newPosition = rb.position + Vector2.down;
-            if (newPosition.y >= yMinBound) rb.MovePosition(newPosition);
-            moveDown = false;
-        }
+        Vector2 newPosition = rb.position + nextMovement;
+        bool withinBounds = newPosition.x <= xMaxBound && newPosition.x >= xMinBound
+            && newPosition.y <= yMaxBound && newPosition.y >= yMinBound;
+        if (withinBounds) rb.MovePosition(newPosition);
+
+        // Reset next movement vector to zero
+        nextMovement = Vector2.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Check for movement
-        if (!moveRight) moveRight = Input.GetKeyDown(KeyCode.D);
-        if (!moveLeft) moveLeft = Input.GetKeyDown(KeyCode.A);
-        if (!moveUp) moveUp = Input.GetKeyDown(KeyCode.W);
-        if (!moveDown) moveDown = Input.GetKeyDown(KeyCode.S);
+        // Check for next movement direction
+        if (Input.GetKeyDown(KeyCode.D)) nextMovement = Vector2.right;
+        else if (Input.GetKeyDown(KeyCode.A)) nextMovement = Vector2.left;
+        else if (Input.GetKeyDown(KeyCode.W)) nextMovement = Vector2.up;
+        else if (Input.GetKeyDown(KeyCode.S)) nextMovement = Vector2.down;
     }
 }
