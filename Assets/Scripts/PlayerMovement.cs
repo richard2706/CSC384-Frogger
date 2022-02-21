@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private static float yMaxBound;
 
     /* Rigidbody component of the player. */
-    private Rigidbody2D rb;
+    private Rigidbody2D playerBody;
 
     /* Vector to move by in the next call to FixedUpdate, as decied by the most recent directional
      * input key from the player. */
@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        playerBody = GetComponent<Rigidbody2D>();
         nextMovement = Vector2.zero;
     }
 
@@ -37,10 +37,10 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         // Execute movement (if detected in Update)
-        Vector2 newPosition = rb.position + nextMovement;
+        Vector2 newPosition = playerBody.position + nextMovement;
         bool withinBounds = newPosition.x <= xMaxBound && newPosition.x >= xMinBound
             && newPosition.y <= yMaxBound && newPosition.y >= yMinBound;
-        if (withinBounds) rb.MovePosition(newPosition);
+        if (withinBounds) playerBody.MovePosition(newPosition);
 
         // Reset next movement vector to zero
         nextMovement = Vector2.zero;
