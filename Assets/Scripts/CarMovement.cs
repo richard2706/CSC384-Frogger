@@ -18,7 +18,7 @@ public class CarMovement : MonoBehaviour
     void FixedUpdate()
     {
         // Move the car forwards at constant rate
-        Vector2 forwardVector = new Vector2(-transform.right.x, -transform.right.y); // Vector in direction of sprite
-        carBody.MovePosition(carBody.position + forwardVector * speedMultiplier * Time.fixedDeltaTime);
+        Vector2 forwardVector = new Vector2(transform.right.x, -transform.right.y); // Vector in direction of sprite
+        carBody.MovePosition(carBody.position + speedMultiplier * Time.fixedDeltaTime * forwardVector);
     }
 }
