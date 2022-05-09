@@ -6,7 +6,13 @@ public class CarSpawner : MonoBehaviour
 {
     [SerializeField] private float spawnInterval = 0.3f; // Length of time between car spawns.
     [SerializeField] private GameObject car; // Car prefab from which to spawn new cars.
+    private Transform spawnPoint; // Location to spawn cars from.
     private float timeToNextSpawn = 0f; // Time until another car is spawned.
+
+    private void Awake()
+    {
+        spawnPoint = transform;
+    }
 
     private void Update()
     {
@@ -23,6 +29,6 @@ public class CarSpawner : MonoBehaviour
 
     private void SpawnCar()
     {
-        Instantiate(car);
+        Instantiate(car, spawnPoint);
     }
 }
