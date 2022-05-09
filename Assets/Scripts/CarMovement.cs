@@ -5,20 +5,22 @@ public class CarMovement : MonoBehaviour
 {
     [SerializeField] private float minSpeedMultiplier;
     [SerializeField] private float maxSpeedMultiplier;
-    private float speedMultiplier;
+    private float speed;
+    private Transform carTransform;
     private Rigidbody2D carBody;
 
     private void Awake()
     {
+        carTransform = transform;
         carBody = GetComponent<Rigidbody2D>();
-        speedMultiplier = Random.Range(minSpeedMultiplier, maxSpeedMultiplier);
+        speed = Random.Range(minSpeedMultiplier, maxSpeedMultiplier);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         // Move the car forwards at constant rate
-        Vector2 forwardVector = new Vector2(transform.right.x, -transform.right.y); // Vector in direction of sprite
-        carBody.MovePosition(carBody.position + speedMultiplier * Time.fixedDeltaTime * forwardVector);
+        Vector2 forwardVector = new Vector2(carTransform.right.x, -carTransform.right.y); // Vector in direction of sprite
+        carBody.MovePosition(carBody.position + speed * Time.fixedDeltaTime * forwardVector);
     }
 }
