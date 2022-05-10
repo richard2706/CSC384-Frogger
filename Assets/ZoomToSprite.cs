@@ -1,22 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class ZoomToSprite : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer sprite;
     private Transform cameraTransform;
-    private float cameraZ;
 
     private void Awake()
     {
         cameraTransform = transform;
-        cameraZ = transform.position.z;
     }
 
     private void Start()
     {
+        CenterCameraOnSprite();
+        ZoomCameraToSprite();
+    }
+
+    private void CenterCameraOnSprite()
+    {
         Vector3 spritePosition = sprite.transform.position;
-        cameraTransform.position = new Vector3(spritePosition.x, spritePosition.y, cameraZ);
+        cameraTransform.position = new Vector3(spritePosition.x, spritePosition.y, cameraTransform.position.z);
+    }
+
+    private void ZoomCameraToSprite()
+    {
+        Vector3 spriteExtents = sprite.GetComponent<SpriteRenderer>().bounds.extents;
+        GetComponent<Camera>().orthographicSize = spriteExtents.y;
     }
 }
