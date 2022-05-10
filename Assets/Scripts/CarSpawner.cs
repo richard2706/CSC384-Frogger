@@ -5,7 +5,8 @@ using UnityEngine;
 public class CarSpawner : MonoBehaviour
 {
     [SerializeField] private float spawnInterval = 2f; // Length of time between car spawns.
-    [SerializeField] private GameObject car; // Car prefab from which to spawn new cars.
+    [SerializeField] private CarMovement car; // Car prefab from which to spawn new cars.
+    [SerializeField] private float carSpeed;
     [SerializeField] private bool spawnDirectionLeft; // If true, spawned cars move left, otherwise they move right.
     private Transform spawnPoint; // Location to spawn cars from.
     private float timeToNextSpawn = 0f; // Time until another car is spawned.
@@ -32,6 +33,6 @@ public class CarSpawner : MonoBehaviour
 
     private void SpawnCar()
     {
-        Instantiate(car, spawnPoint);
+        Instantiate(car, spawnPoint).SetSpeed(carSpeed);
     }
 }

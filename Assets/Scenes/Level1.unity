@@ -262,6 +262,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4559721886231518367, guid: 66448dead1ffdd8429cf853bc781827f, type: 3}
+      propertyPath: carSpeed
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4559721886231518367, guid: 66448dead1ffdd8429cf853bc781827f, type: 3}
       propertyPath: spawnInterval
       value: 1.25
       objectReference: {fileID: 0}
@@ -427,6 +431,10 @@ PrefabInstance:
     - target: {fileID: 4559721886231518366, guid: 66448dead1ffdd8429cf853bc781827f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4559721886231518367, guid: 66448dead1ffdd8429cf853bc781827f, type: 3}
+      propertyPath: carSpeed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4559721886231518367, guid: 66448dead1ffdd8429cf853bc781827f, type: 3}
       propertyPath: spawnInterval
@@ -633,6 +641,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4559721886231518367, guid: 66448dead1ffdd8429cf853bc781827f, type: 3}
+      propertyPath: carSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4559721886231518367, guid: 66448dead1ffdd8429cf853bc781827f, type: 3}
       propertyPath: spawnInterval
       value: 2
       objectReference: {fileID: 0}
@@ -692,6 +704,10 @@ PrefabInstance:
     - target: {fileID: 4559721886231518366, guid: 66448dead1ffdd8429cf853bc781827f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4559721886231518367, guid: 66448dead1ffdd8429cf853bc781827f, type: 3}
+      propertyPath: carSpeed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4559721886231518367, guid: 66448dead1ffdd8429cf853bc781827f, type: 3}
       propertyPath: spawnInterval

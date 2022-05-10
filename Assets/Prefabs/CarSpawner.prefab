@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnInterval: 0.3
-  car: {fileID: 4620453596837782406, guid: 0c280dc4eb8aaeb46a4d27dcb6cc5e2c, type: 3}
+  car: {fileID: 4620453596837782402, guid: 0c280dc4eb8aaeb46a4d27dcb6cc5e2c, type: 3}
+  carSpeed: 0
   spawnDirectionLeft: 0

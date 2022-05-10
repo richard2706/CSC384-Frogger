@@ -3,17 +3,19 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CarMovement : MonoBehaviour
 {
-    [SerializeField] private float minSpeedMultiplier;
-    [SerializeField] private float maxSpeedMultiplier;
-    private float speed;
+    [SerializeField] private float speed;
     private Transform carTransform;
     private Rigidbody2D carBody;
+
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
 
     private void Awake()
     {
         carTransform = transform;
         carBody = GetComponent<Rigidbody2D>();
-        speed = Random.Range(minSpeedMultiplier, maxSpeedMultiplier);
     }
 
     // Update is called once per frame
