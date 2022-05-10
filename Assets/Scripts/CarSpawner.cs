@@ -8,14 +8,20 @@ public class CarSpawner : MonoBehaviour
     [SerializeField] private CarMovement car; // Car prefab from which to spawn new cars.
     [SerializeField] private float carSpeed;
     [SerializeField] private bool spawnDirectionLeft; // If true, spawned cars move left, otherwise they move right.
+
     private Transform spawnPoint; // Location to spawn cars from.
+    private float roadWidth;
     private float timeToNextSpawn = 0f; // Time until another car is spawned.
 
     private void Awake()
     {
-        // adjust spawnDirection based on serialzefield option or towards centre of road
         spawnPoint = transform;
         if (spawnDirectionLeft) spawnPoint.Rotate(0f, 0f, 180f);
+    }
+
+    private void Start()
+    {
+        roadWidth = spawnPoint.parent.gameObject.GetComponent<SpriteRenderer>().bounds.extents.x * 2;
     }
 
     private void Update()
@@ -33,6 +39,12 @@ public class CarSpawner : MonoBehaviour
 
     private void SpawnCar()
     {
-        Instantiate(car, spawnPoint).SetSpeed(carSpeed);
+        // Spawn car
+        CarMovement carMovement = Instantiate(car, spawnPoint);
+        carMovement.SetSpeed(carSpeed);
+
+        // Destroy car when off screen
+        float timeUntilDestroy = (roadWidth + 1) / carSpeed;
+        Destroy(carMovement.gameObject, timeUntilDestroy);
     }
 }
