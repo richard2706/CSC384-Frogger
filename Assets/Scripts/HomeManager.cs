@@ -22,6 +22,7 @@ public class HomeManager : MonoBehaviour
         if (!homeFilled && collider.GetComponentInParent<PlayerMovement>())
         {
             Debug.Log("Player reached a home");
+            ScoreManager.IncreaseScore(50);
             homeFilled = true;
             filledHomes++;
             if (filledHomes == totalHomes)
