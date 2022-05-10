@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
      * input key from the player. */
     private Vector2 nextMovement;
 
+    private bool resetPosition = false;
+    private Vector2 initialPosition = new Vector2(0f, -4.5f);
+
     private void Awake()
     {
         playerBody = GetComponent<Rigidbody2D>();
@@ -40,10 +43,12 @@ public class PlayerMovement : MonoBehaviour
         Vector2 newPosition = playerBody.position + nextMovement;
         bool withinBounds = newPosition.x <= xMaxBound && newPosition.x >= xMinBound
             && newPosition.y <= yMaxBound && newPosition.y >= yMinBound;
-        if (withinBounds) playerBody.MovePosition(newPosition);
+        if (resetPosition) playerBody.MovePosition(initialPosition);
+        else if (withinBounds) playerBody.MovePosition(newPosition);
 
         // Reset next movement vector to zero
         nextMovement = Vector2.zero;
+        resetPosition = false;
     }
 
     // Update is called once per frame
@@ -54,5 +59,10 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.A)) nextMovement = Vector2.left;
         else if (Input.GetKeyDown(KeyCode.W)) nextMovement = Vector2.up;
         else if (Input.GetKeyDown(KeyCode.S)) nextMovement = Vector2.down;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.GetComponentInParent<CarMovement>()) resetPosition = true;
     }
 }
