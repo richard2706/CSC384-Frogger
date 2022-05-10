@@ -18,12 +18,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 nextMovement;
 
     private bool resetPosition = false;
-    private Vector2 initialPosition = new Vector2(0f, -4.5f);
+    private Vector2 initialPosition;
 
     private void Awake()
     {
         playerBody = GetComponent<Rigidbody2D>();
         nextMovement = Vector2.zero;
+        initialPosition = transform.position;
     }
 
     private void Start()
