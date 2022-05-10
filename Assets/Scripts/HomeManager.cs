@@ -21,14 +21,20 @@ public class HomeManager : MonoBehaviour
     {
         if (!homeFilled && collider.GetComponentInParent<PlayerMovement>())
         {
-            Debug.Log("Player reached a home");
             ScoreManager.IncreaseScore(50);
-            homeFilled = true;
-            filledHomes++;
-            if (filledHomes == totalHomes)
-            {
-                Debug.Log("All homes filled");
-            }
+            FillHome();
+        }
+    }
+
+    private void FillHome()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+
+        homeFilled = true;
+        filledHomes++;
+        if (filledHomes == totalHomes)
+        {
+            Debug.Log("All homes filled");
         }
     }
 }
