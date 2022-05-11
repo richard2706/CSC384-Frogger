@@ -4,6 +4,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class ScoreManager : MonoBehaviour
 {
+    private const int FrogReachHomePoints = 50;
+
     private static int score = 0;
     private static Text scoreText;
 
@@ -12,6 +14,11 @@ public class ScoreManager : MonoBehaviour
         score += points;
         UpdateScoreUI();
         return score;
+    }
+
+    private static void UpdateScoreUI()
+    {
+        scoreText.text = score.ToString();
     }
 
     private void Awake()
@@ -23,11 +30,11 @@ public class ScoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        HomeManager.OnFrogReachedHome += UpdateScoreOnFrogReachedHome;
     }
 
-    private static void UpdateScoreUI()
+    private void UpdateScoreOnFrogReachedHome()
     {
-        scoreText.text = score.ToString();
+        IncreaseScore(FrogReachHomePoints);
     }
 }
