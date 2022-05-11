@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class HomeManager : MonoBehaviour
 {
     public static event Action OnFrogReachedHome;
@@ -14,12 +15,15 @@ public class HomeManager : MonoBehaviour
 
     public bool IsTaken { get; private set; }
     public Vector2 Position => homeTransform.position;
+    public Vector2 ColliderSize => homeCollider.bounds.size;
 
     private Transform homeTransform;
+    private Collider2D homeCollider;
 
     private void Awake()
     {
         homeTransform = transform;
+        homeCollider = GetComponent<Collider2D>();
         IsTaken = false;
     }
 

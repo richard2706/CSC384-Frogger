@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         {
             foreach (HomeManager home in HomeManager.AllHomes)
             {
-                bool atFrogHome = Vector2.Distance(home.Position, playerPosition) < playerCollider.radius;
+                bool atFrogHome = Vector2.Distance(home.Position, playerPosition) <= (home.ColliderSize.x / 2);
                 atEmptyFrogHome = atFrogHome && !home.IsTaken;
                 if (atEmptyFrogHome) break;
             }
