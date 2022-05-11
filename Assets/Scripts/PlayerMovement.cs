@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 // Ensures there is a Rigidbody2D component on any game object that this script is added to.
@@ -56,17 +57,20 @@ public class PlayerMovement : MonoBehaviour
 
         // Check new player position is valid
         bool atFrogHome = false; // only check for this if at top of game board
-        foreach (Vector2 homePosition in HomeManager.AllHomePositions)
+        if (newPosition.y > yMaxBound)
         {
-            atFrogHome = Vector2.Distance(homePosition, newPosition) < playerCollider.radius;
-            Debug.Log(atFrogHome);
-            if (atFrogHome) break;
+            foreach (Vector2 homePosition in HomeManager.AllHomePositions)
+            {
+                atFrogHome = Vector2.Distance(homePosition, newPosition) < playerCollider.radius;
+                Debug.Log(atFrogHome);
+                if (atFrogHome) break;
+            }
         }
-        bool withinBounds = newPosition.x <= xMaxBound && newPosition.x >= xMinBound
-            && (newPosition.y <= yMaxBound || atFrogHome) && newPosition.y >= yMinBound;
+        bool withinGameArea = newPosition.x <= xMaxBound && newPosition.x >= xMinBound
+            && newPosition.y <= yMaxBound && newPosition.y >= yMinBound;
 
         // Execute movement
-        if (withinBounds) playerBody.MovePosition(newPosition);
+        if (withinGameArea || atFrogHome) playerBody.MovePosition(newPosition);
     }
 
     // Update is called once per frame
