@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class CarSpawner : MonoBehaviour
@@ -10,18 +9,12 @@ public class CarSpawner : MonoBehaviour
     [SerializeField] private bool spawnDirectionLeft; // If true, spawned cars move left, otherwise they move right.
 
     private Transform spawnPoint; // Location to spawn cars from.
-    private float roadWidth;
     private float timeToNextSpawn = 0f; // Time until another car is spawned.
 
     private void Awake()
     {
         spawnPoint = transform;
         if (spawnDirectionLeft) spawnPoint.Rotate(0f, 0f, 180f);
-    }
-
-    private void Start()
-    {
-        roadWidth = spawnPoint.parent.gameObject.GetComponent<SpriteRenderer>().bounds.extents.x * 2;
     }
 
     private void Update()
@@ -44,7 +37,7 @@ public class CarSpawner : MonoBehaviour
         carMovement.SetSpeed(carSpeed);
 
         // Destroy car when off screen
-        float timeUntilDestroy = (roadWidth + 1) / carSpeed;
+        float timeUntilDestroy = Math.Abs(spawnPoint.position.x / carSpeed) * 2;
         Destroy(carMovement.gameObject, timeUntilDestroy);
     }
 }
