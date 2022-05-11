@@ -15,7 +15,7 @@ public class PlayerLives : MonoBehaviour // raname to PlayerCollisionManager
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.GetComponentInParent<CarMovement>())
+        if (collider.GetComponentInParent<SpawnableMovement>())
         {
             Debug.Log("Car collided with player");
             playerBody.MovePosition(initialPosition);

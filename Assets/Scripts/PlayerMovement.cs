@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.GetComponentInParent<CarMovement>()) ResetPlayerPosition();
+        if (collider.GetComponentInParent<SpawnableMovement>()) ResetPlayerPosition();
     }
 
     /// <summary>
