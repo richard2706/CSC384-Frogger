@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private float spawnInterval; // Time in seconds between spawns.
     [SerializeField] private float spawnableSpeed;
-    [SerializeField] private SpawnableMovement spawnable;
+    [SerializeField] private List<SpawnableMovement> spawnables;
     [SerializeField] private bool spawnDirectionLeft; // If true, spawnabled will travel left, otherwise they move right.
 
     private Transform spawnPoint; // Location to spawn from.
@@ -32,7 +33,8 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        SpawnableMovement spawnableMovement = Instantiate(spawnable, spawnPoint);
+        int randomIndex = UnityEngine.Random.Range(0, spawnables.Count);
+        SpawnableMovement spawnableMovement = Instantiate(spawnables[randomIndex], spawnPoint);
         spawnableMovement.SetSpeed(spawnableSpeed);
 
         // Destroy spawnable when off screen
