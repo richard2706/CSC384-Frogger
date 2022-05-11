@@ -32,11 +32,13 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         HomeManager.OnFrogReachedHome += ResetPlayerPosition;
+        Dangerous.OnDangerousCollision += ResetPlayerPosition;
     }
 
     private void OnDisable()
     {
         HomeManager.OnFrogReachedHome -= ResetPlayerPosition;
+        Dangerous.OnDangerousCollision -= ResetPlayerPosition;
     }
 
     private void Start()
@@ -72,11 +74,6 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.A)) nextMovement = Vector2.left;
         else if (Input.GetKeyDown(KeyCode.W)) nextMovement = Vector2.up;
         else if (Input.GetKeyDown(KeyCode.S)) nextMovement = Vector2.down;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.GetComponentInParent<SpawnableMovement>()) ResetPlayerPosition();
     }
 
     /// <summary>
