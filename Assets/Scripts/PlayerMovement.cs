@@ -43,12 +43,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        // Calculate road bounds so player cannot move outside the road area.
-        Vector3 gameAreaExtents = boundingGameArea.bounds.extents;
-        xMinBound = -gameAreaExtents.x;
-        xMaxBound = gameAreaExtents.x;
-        yMinBound = -gameAreaExtents.y;
-        yMaxBound = gameAreaExtents.y - Vector2.up.y;
+        // Calculate bounds so player cannot move outside the game area.
+        Vector2 gameAreaCenter = boundingGameArea.transform.position;
+        Vector2 gameAreaExtents = boundingGameArea.bounds.extents;
+        xMinBound = gameAreaCenter.x - gameAreaExtents.x;
+        xMaxBound = gameAreaCenter.x + gameAreaExtents.x;
+        yMinBound = gameAreaCenter.y - gameAreaExtents.y;
+        yMaxBound = gameAreaCenter.y + gameAreaExtents.y - Vector2.up.y;
     }
 
     private void FixedUpdate()
@@ -92,8 +93,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        bool withinGameArea = playerPosition.x <= xMaxBound && playerPosition.x >= xMinBound
-            && playerPosition.y <= yMaxBound && playerPosition.y >= yMinBound;
+        bool withinGameArea =
+            playerPosition.x + playerCollider.radius <= xMaxBound
+            && playerPosition.x - playerCollider.radius >= xMinBound
+            && playerPosition.y <= yMaxBound
+            && playerPosition.y >= yMinBound;
 
         return withinGameArea || atEmptyFrogHome;
     }
