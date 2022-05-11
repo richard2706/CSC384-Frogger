@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnInterval: 3
+  spawnableSpeed: 5
   spawnable: {fileID: 0}
-  speed: 5
   spawnDirectionLeft: 0
