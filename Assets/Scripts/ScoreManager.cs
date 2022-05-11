@@ -21,6 +21,11 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = score.ToString();
     }
 
+    private void OnEnable()
+    {
+        
+    }
+
     private static void UpdateScoreUI()
     {
         scoreText.text = score.ToString();

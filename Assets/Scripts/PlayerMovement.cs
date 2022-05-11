@@ -29,6 +29,16 @@ public class PlayerMovement : MonoBehaviour
         initialPosition = playerTransform.position;
     }
 
+    private void OnEnable()
+    {
+        HomeManager.OnFrogReachedHome += ResetPlayerPosition;
+    }
+
+    private void OnDisable()
+    {
+        HomeManager.OnFrogReachedHome -= ResetPlayerPosition;
+    }
+
     private void Start()
     {
         // Calculate road bounds so player cannot move outside the road area.
@@ -55,6 +65,20 @@ public class PlayerMovement : MonoBehaviour
         nextMovement = Vector2.zero;
     }
 
+    private void Update()
+    {
+        // Check for next movement direction
+        if (Input.GetKeyDown(KeyCode.D)) nextMovement = Vector2.right;
+        else if (Input.GetKeyDown(KeyCode.A)) nextMovement = Vector2.left;
+        else if (Input.GetKeyDown(KeyCode.W)) nextMovement = Vector2.up;
+        else if (Input.GetKeyDown(KeyCode.S)) nextMovement = Vector2.down;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.GetComponentInParent<CarMovement>()) ResetPlayerPosition();
+    }
+
     /// <summary>
     /// Returns true if the given position is a valid position for the player to move to.
     /// </summary>
@@ -78,18 +102,8 @@ public class PlayerMovement : MonoBehaviour
         return withinGameArea || atEmptyFrogHome;
     }
 
-    void Update()
+    private void ResetPlayerPosition()
     {
-        // Check for next movement direction
-        if (Input.GetKeyDown(KeyCode.D)) nextMovement = Vector2.right;
-        else if (Input.GetKeyDown(KeyCode.A)) nextMovement = Vector2.left;
-        else if (Input.GetKeyDown(KeyCode.W)) nextMovement = Vector2.up;
-        else if (Input.GetKeyDown(KeyCode.S)) nextMovement = Vector2.down;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.GetComponentInParent<CarMovement>() || collider.GetComponentInParent<HomeManager>())
-            resetPosition = true;
+        resetPosition = true;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HomeManager : MonoBehaviour
 {
+    public static event Action OnFrogReachedHome;
+
     private static List<HomeManager> allHomes = new List<HomeManager>();
 
     public static HomeManager[] AllHomes => allHomes.ToArray();
@@ -35,7 +37,7 @@ public class HomeManager : MonoBehaviour
     {
         if (!IsTaken && collider.GetComponentInParent<PlayerMovement>())
         {
-            ScoreManager.IncreaseScore(50);
+            OnFrogReachedHome?.Invoke();
             FillHome();
         }
     }
