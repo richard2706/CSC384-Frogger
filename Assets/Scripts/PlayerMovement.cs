@@ -5,13 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(CircleCollider2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    // Bounding coordinates for player movement
-    private static float xMinBound;
-    private static float xMaxBound;
-    private static float yMinBound;
-    private static float yMaxBound;
+    [SerializeField] private SpriteRenderer boundingGameArea; // Player can move within bounds of this sprite.
 
-    private Transform playerTransform;
+    // Bounding coordinates for player movement
+    private float xMinBound;
+    private float xMaxBound;
+    private float yMinBound;
+    private float yMaxBound;
+
     private Rigidbody2D playerBody;
     private CircleCollider2D playerCollider;
 
@@ -21,12 +22,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        playerTransform = transform;
         playerBody = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<CircleCollider2D>();
         nextMovement = Vector2.zero;
         resetPosition = false;
-        initialPosition = playerTransform.position;
+        initialPosition = transform.position;
     }
 
     private void OnEnable()
@@ -44,14 +44,13 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         // Calculate road bounds so player cannot move outside the road area.
-        Vector3 roadExtents = playerTransform.parent.gameObject.GetComponent<SpriteRenderer>().bounds.extents;
-        xMinBound = -roadExtents.x;
-        xMaxBound = roadExtents.x;
-        yMinBound = -roadExtents.y;
-        yMaxBound = roadExtents.y - Vector2.up.y;
+        Vector3 gameAreaExtents = boundingGameArea.bounds.extents;
+        xMinBound = -gameAreaExtents.x;
+        xMaxBound = gameAreaExtents.x;
+        yMinBound = -gameAreaExtents.y;
+        yMaxBound = gameAreaExtents.y - Vector2.up.y;
     }
 
-    // Called at regular fixed intervals
     private void FixedUpdate()
     {
         if (resetPosition)
