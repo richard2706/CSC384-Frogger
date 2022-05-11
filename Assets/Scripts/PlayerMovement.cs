@@ -33,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 roadExtents = transform.parent.gameObject.GetComponent<SpriteRenderer>().bounds.extents;
         xMinBound = -roadExtents.x;
         xMaxBound = roadExtents.x;
-        yMinBound = -roadExtents.y - Vector2.up.y; // Player can move along the bottom of the road
-        yMaxBound = roadExtents.y + Vector2.up.y; // Player can cross to the other side of the road
+        yMinBound = -roadExtents.y;
+        yMaxBound = roadExtents.y;
     }
 
     // Called at regular fixed intervals
