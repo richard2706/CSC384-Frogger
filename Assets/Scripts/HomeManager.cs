@@ -1,34 +1,39 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HomeManager : MonoBehaviour
 {
-    private static int filledHomes = 0; // refactor to remove this
-    private static List<Vector2> allHomePositions = new List<Vector2>();
+    private static List<HomeManager> allHomes = new List<HomeManager>();
 
-    private bool homeFilled = false;
+    private static int filledHomes = 0; // refactor to remove this
+
+    public bool IsTaken { get; private set; }
+    public Vector2 Position => homeTransform.position;
+
     private Transform homeTransform;
 
-    public static Vector2[] AllHomePositions => allHomePositions.ToArray();
+    public static HomeManager[] AllHomes => allHomes.ToArray();
 
     private void Awake()
     {
         homeTransform = transform;
+        IsTaken = false;
     }
 
     private void OnEnable()
     {
-        allHomePositions.Add(homeTransform.position);
+        allHomes.Add(this);
     }
 
     private void OnDisable()
     {
-        allHomePositions.Remove(homeTransform.position);
+        allHomes.Remove(this);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (!homeFilled && collider.GetComponentInParent<PlayerMovement>())
+        if (!IsTaken && collider.GetComponentInParent<PlayerMovement>())
         {
             ScoreManager.IncreaseScore(50);
             FillHome();
@@ -39,9 +44,9 @@ public class HomeManager : MonoBehaviour
     {
         transform.GetChild(0).gameObject.SetActive(true);
 
-        homeFilled = true;
+        IsTaken = true;
         filledHomes++;
-        if (filledHomes == allHomePositions.Count)
+        if (filledHomes == allHomes.Count)
         {
             Debug.Log("All homes filled");
         }

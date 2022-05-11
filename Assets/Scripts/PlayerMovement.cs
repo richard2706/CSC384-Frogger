@@ -56,22 +56,23 @@ public class PlayerMovement : MonoBehaviour
     /// Returns true if the given position is a valid position for the player to move to.
     /// </summary>
     /// <returns>True if the position is a valid position for the player to move to.</returns>
-    private bool PlayerPositionValid(Vector2 position)
+    private bool PlayerPositionValid(Vector2 playerPosition)
     {
-        bool atFrogHome = false;
-        if (position.y > yMaxBound)
+        bool atEmptyFrogHome = false;
+        if (playerPosition.y > yMaxBound)
         {
-            foreach (Vector2 homePosition in HomeManager.AllHomePositions)
+            foreach (HomeManager home in HomeManager.AllHomes)
             {
-                atFrogHome = Vector2.Distance(homePosition, position) < playerCollider.radius;
-                if (atFrogHome) break;
+                bool atFrogHome = Vector2.Distance(home.Position, playerPosition) < playerCollider.radius;
+                atEmptyFrogHome = atFrogHome && !home.IsTaken;
+                if (atEmptyFrogHome) break;
             }
         }
 
-        bool withinGameArea = position.x <= xMaxBound && position.x >= xMinBound
-            && position.y <= yMaxBound && position.y >= yMinBound;
+        bool withinGameArea = playerPosition.x <= xMaxBound && playerPosition.x >= xMinBound
+            && playerPosition.y <= yMaxBound && playerPosition.y >= yMinBound;
 
-        return withinGameArea || atFrogHome;
+        return withinGameArea || atEmptyFrogHome;
     }
 
     void Update()
