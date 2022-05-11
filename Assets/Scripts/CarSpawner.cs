@@ -37,7 +37,7 @@ public class CarSpawner : MonoBehaviour
         carMovement.SetSpeed(carSpeed);
 
         // Destroy car when off screen
-        float timeUntilDestroy = Math.Abs(spawnPoint.position.x / carSpeed) * 2;
+        float timeUntilDestroy = Math.Abs(spawnPoint.position.x * 2 / carSpeed);
         Destroy(carMovement.gameObject, timeUntilDestroy);
     }
 }

@@ -11,25 +11,28 @@ public class PlayerMovement : MonoBehaviour
     private static float yMinBound;
     private static float yMaxBound;
 
+    private Transform playerTransform;
     private Rigidbody2D playerBody;
     private CircleCollider2D playerCollider;
+
     private Vector2 nextMovement;
     private bool resetPosition;
     private Vector2 initialPosition;
 
     private void Awake()
     {
+        playerTransform = transform;
         playerBody = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<CircleCollider2D>();
         nextMovement = Vector2.zero;
         resetPosition = false;
-        initialPosition = transform.position;
+        initialPosition = playerTransform.position;
     }
 
     private void Start()
     {
         // Calculate road bounds so player cannot move outside the road area.
-        Vector3 roadExtents = transform.parent.gameObject.GetComponent<SpriteRenderer>().bounds.extents;
+        Vector3 roadExtents = playerTransform.parent.gameObject.GetComponent<SpriteRenderer>().bounds.extents;
         xMinBound = -roadExtents.x;
         xMaxBound = roadExtents.x;
         yMinBound = -roadExtents.y;

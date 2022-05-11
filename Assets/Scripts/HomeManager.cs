@@ -6,14 +6,14 @@ public class HomeManager : MonoBehaviour
 {
     private static List<HomeManager> allHomes = new List<HomeManager>();
 
-    private static int filledHomes = 0; // refactor to remove this
+    public static HomeManager[] AllHomes => allHomes.ToArray();
+    private static bool AllHomesFilled => allHomes.TrueForAll(HomeIsTaken);
+    private static bool HomeIsTaken(HomeManager home) => home.IsTaken;
 
     public bool IsTaken { get; private set; }
     public Vector2 Position => homeTransform.position;
 
     private Transform homeTransform;
-
-    public static HomeManager[] AllHomes => allHomes.ToArray();
 
     private void Awake()
     {
@@ -42,11 +42,10 @@ public class HomeManager : MonoBehaviour
 
     private void FillHome()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
+        homeTransform.GetChild(0).gameObject.SetActive(true);
 
         IsTaken = true;
-        filledHomes++;
-        if (filledHomes == allHomes.Count)
+        if (AllHomesFilled)
         {
             Debug.Log("All homes filled");
         }
