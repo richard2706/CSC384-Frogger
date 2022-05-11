@@ -46,34 +46,34 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (nextMovement != Vector2.zero)
         {
-            MovePlayer();
+            Vector2 newPosition = playerBody.position + nextMovement;
+            if (PlayerPositionValid(newPosition)) playerBody.MovePosition(newPosition);
         }
         nextMovement = Vector2.zero;
     }
 
-    private void MovePlayer() // must also check if home is already filled
+    /// <summary>
+    /// Returns true if the given position is a valid position for the player to move to.
+    /// </summary>
+    /// <returns>True if the position is a valid position for the player to move to.</returns>
+    private bool PlayerPositionValid(Vector2 position)
     {
-        Vector2 newPosition = playerBody.position + nextMovement;
-
-        // Check new player position is valid
-        bool atFrogHome = false; // only check for this if at top of game board
-        if (newPosition.y > yMaxBound)
+        bool atFrogHome = false;
+        if (position.y > yMaxBound)
         {
             foreach (Vector2 homePosition in HomeManager.AllHomePositions)
             {
-                atFrogHome = Vector2.Distance(homePosition, newPosition) < playerCollider.radius;
-                Debug.Log(atFrogHome);
+                atFrogHome = Vector2.Distance(homePosition, position) < playerCollider.radius;
                 if (atFrogHome) break;
             }
         }
-        bool withinGameArea = newPosition.x <= xMaxBound && newPosition.x >= xMinBound
-            && newPosition.y <= yMaxBound && newPosition.y >= yMinBound;
 
-        // Execute movement
-        if (withinGameArea || atFrogHome) playerBody.MovePosition(newPosition);
+        bool withinGameArea = position.x <= xMaxBound && position.x >= xMinBound
+            && position.y <= yMaxBound && position.y >= yMinBound;
+
+        return withinGameArea || atFrogHome;
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Check for next movement direction
