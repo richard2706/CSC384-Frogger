@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Ensures there is a Rigidbody2D component on any game object that this script is added to.
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(CircleCollider2D))]
 public class PlayerMovement : MonoBehaviour
 {
     // Bounding coordinates for player movement
@@ -10,20 +10,18 @@ public class PlayerMovement : MonoBehaviour
     private static float yMinBound;
     private static float yMaxBound;
 
-    /* Rigidbody component of the player. */
     private Rigidbody2D playerBody;
-
-    /* Vector to move by in the next call to FixedUpdate, as decied by the most recent directional
-     * input key from the player. */
+    private CircleCollider2D playerCollider;
     private Vector2 nextMovement;
-
-    private bool resetPosition = false;
+    private bool resetPosition;
     private Vector2 initialPosition;
 
     private void Awake()
     {
         playerBody = GetComponent<Rigidbody2D>();
+        playerCollider = GetComponent<CircleCollider2D>();
         nextMovement = Vector2.zero;
+        resetPosition = false;
         initialPosition = transform.position;
     }
 
@@ -34,22 +32,41 @@ public class PlayerMovement : MonoBehaviour
         xMinBound = -roadExtents.x;
         xMaxBound = roadExtents.x;
         yMinBound = -roadExtents.y;
-        yMaxBound = roadExtents.y;
+        yMaxBound = roadExtents.y - Vector2.up.y;
     }
 
     // Called at regular fixed intervals
     private void FixedUpdate()
     {
-        // Execute movement (if detected in Update)
-        Vector2 newPosition = playerBody.position + nextMovement;
-        bool withinBounds = newPosition.x <= xMaxBound && newPosition.x >= xMinBound
-            && newPosition.y <= yMaxBound && newPosition.y >= yMinBound;
-        if (resetPosition) playerBody.MovePosition(initialPosition);
-        else if (withinBounds) playerBody.MovePosition(newPosition);
-
-        // Reset next movement vector to zero
+        if (resetPosition)
+        {
+            playerBody.MovePosition(initialPosition);
+            resetPosition = false;
+        }
+        else if (nextMovement != Vector2.zero)
+        {
+            MovePlayer();
+        }
         nextMovement = Vector2.zero;
-        resetPosition = false;
+    }
+
+    private void MovePlayer() // must also check if home is already filled
+    {
+        Vector2 newPosition = playerBody.position + nextMovement;
+
+        // Check new player position is valid
+        bool atFrogHome = false; // only check for this if at top of game board
+        foreach (Vector2 homePosition in HomeManager.AllHomePositions)
+        {
+            atFrogHome = Vector2.Distance(homePosition, newPosition) < playerCollider.radius;
+            Debug.Log(atFrogHome);
+            if (atFrogHome) break;
+        }
+        bool withinBounds = newPosition.x <= xMaxBound && newPosition.x >= xMinBound
+            && (newPosition.y <= yMaxBound || atFrogHome) && newPosition.y >= yMinBound;
+
+        // Execute movement
+        if (withinBounds) playerBody.MovePosition(newPosition);
     }
 
     // Update is called once per frame

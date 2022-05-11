@@ -1,20 +1,29 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HomeManager : MonoBehaviour
 {
-    private static int totalHomes = 0;
-    private static int filledHomes = 0;
+    private static int filledHomes = 0; // refactor to remove this
+    private static List<Vector2> allHomePositions = new List<Vector2>();
 
     private bool homeFilled = false;
+    private Transform homeTransform;
+
+    public static Vector2[] AllHomePositions => allHomePositions.ToArray();
+
+    private void Awake()
+    {
+        homeTransform = transform;
+    }
 
     private void OnEnable()
     {
-        totalHomes++;
+        allHomePositions.Add(homeTransform.position);
     }
 
     private void OnDisable()
     {
-        totalHomes--;
+        allHomePositions.Remove(homeTransform.position);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -32,7 +41,7 @@ public class HomeManager : MonoBehaviour
 
         homeFilled = true;
         filledHomes++;
-        if (filledHomes == totalHomes)
+        if (filledHomes == allHomePositions.Count)
         {
             Debug.Log("All homes filled");
         }
