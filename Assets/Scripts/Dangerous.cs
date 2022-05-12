@@ -4,10 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Dangerous : MonoBehaviour
 {
-    public static event Action OnDangerousCollision;
+    [SerializeField] private bool safeIfCarried; // if true, player is safe if they are being carried
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.GetComponentInParent<PlayerMovement>()) OnDangerousCollision?.Invoke();
+        PlayerMovement player = collider.GetComponentInParent<PlayerMovement>();
+        if (player && (!safeIfCarried || !player.GetComponent<Carryable>().CheckBeingCarried()))
+        {
+            player.ResetPlayerPosition();
+        }
     }
 }

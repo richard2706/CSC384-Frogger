@@ -5,26 +5,16 @@ using UnityEngine;
 public class Carrier : MonoBehaviour
 {
     private bool canCarry = true;
-    private Transform carrierTransform;
-
-    private void Awake()
-    {
-        carrierTransform = transform;
-    }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (canCarry && collider.GetComponentInParent<Carryable>())
-        {
-            collider.transform.parent = carrierTransform;
-        }
+        Carryable carryableTarget = collider.GetComponentInParent<Carryable>();
+        if (canCarry && carryableTarget) collider.transform.parent = transform;
     }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.GetComponentInParent<Carryable>())
-        {
-            collider.transform.parent = null;
-        }
+        Carryable carryableTarget = collider.GetComponentInParent<Carryable>();
+        if (carryableTarget) collider.transform.parent = null;
     }
 }

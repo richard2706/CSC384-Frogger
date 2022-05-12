@@ -178,7 +178,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: RiverStrip (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8023100105258059306, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
 --- !u!1 &63758726
 GameObject:
@@ -473,7 +474,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: RiverStrip (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8023100105258059306, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
 --- !u!1 &308915963
 GameObject:
@@ -1604,7 +1606,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: RiverStrip
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8023100105258059306, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
 --- !u!1001 &1260641470
 PrefabInstance:
@@ -2200,7 +2203,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: RiverStrip (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8023100105258059306, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
 --- !u!1001 &6013686506815164814
 PrefabInstance:

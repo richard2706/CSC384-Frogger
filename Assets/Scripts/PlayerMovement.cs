@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 // Ensures there is a Rigidbody2D component on any game object that this script is added to.
-[RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(CircleCollider2D)), RequireComponent(typeof(Carryable))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer boundingGameArea; // Player can move within bounds of this sprite.
@@ -19,6 +20,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 nextMovement;
     private bool resetPosition;
     private Vector2 initialPosition;
+    //private bool // SHould be true if being carried on the river, then don't perform triggerenter2d checks again if true
+
+    public void ResetPlayerPosition()
+    {
+        resetPosition = true;
+    }
 
     private void Awake()
     {
@@ -32,13 +39,11 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         HomeManager.OnFrogReachedHome += ResetPlayerPosition;
-        Dangerous.OnDangerousCollision += ResetPlayerPosition;
     }
 
     private void OnDisable()
     {
         HomeManager.OnFrogReachedHome -= ResetPlayerPosition;
-        Dangerous.OnDangerousCollision -= ResetPlayerPosition;
     }
 
     private void Start()
@@ -100,10 +105,5 @@ public class PlayerMovement : MonoBehaviour
             && playerPosition.y >= yMinBound;
 
         return withinGameArea || atEmptyFrogHome;
-    }
-
-    private void ResetPlayerPosition()
-    {
-        resetPosition = true;
     }
 }
