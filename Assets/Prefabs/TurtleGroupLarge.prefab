@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 796843225080400240}
   - component: {fileID: 7097811369394893778}
   - component: {fileID: 7203251537525718905}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TurtleGroupLarge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,8 +159,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingTime: 2
-  transitionTime: 1
+  sinkTransitionTime: 1
   underwaterTime: 0.5
+  surfaceTransitionTime: 0.25
   floatingSprite: {fileID: 21300000, guid: bec7e56e085fe26489992d0f815b2689, type: 3}
   transitionSprite: {fileID: 21300000, guid: df274e8f562cde74e99c2e74db510f2d, type: 3}
   underwaterSprite: {fileID: 21300000, guid: 343be46ce05e35f4d9a37fa76fd4a521, type: 3}

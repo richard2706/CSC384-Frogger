@@ -2127,7 +2127,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frogSprite: {fileID: 21300000, guid: 251b8430a88bd89429aa691b2aabe8ca, type: 3}
   ripFrogSprite: {fileID: 21300000, guid: 1847c860950108c4396e79dfa495b1ee, type: 3}
-  restartDelay: 1
 --- !u!114 &1937344616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2140,6 +2139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d8bcbf7ba62734aa0bf2244d501a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loseLifeRestartDelay: 1
 --- !u!1001 &1945129886
 PrefabInstance:
   m_ObjectHideFlags: 0

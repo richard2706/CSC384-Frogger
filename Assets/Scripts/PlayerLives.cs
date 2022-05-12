@@ -11,7 +11,7 @@ public class PlayerLives : MonoBehaviour
         lives = maxLives;
     }
 
-    private void LoseLife()
+    public void LoseLife()
     {
         lives--;
         if (lives < 0) lives = 0;

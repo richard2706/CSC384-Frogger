@@ -6,27 +6,21 @@ public class PlayerSpriteManager : MonoBehaviour
 {
     [SerializeField] private Sprite frogSprite;
     [SerializeField] private Sprite ripFrogSprite;
-    [SerializeField] private float restartDelay;
 
     private SpriteRenderer spriteRenderer;
 
-    public void StartLoseLifeSequence()
+    public void ShowRipSprite() // 2 public methods to change sprites? or coroutine to manage the changes?
     {
-        StartCoroutine(LoseLifeSequence());
+        spriteRenderer.sprite = ripFrogSprite;
+    }
+
+    public void ShowFrogSprite()
+    {
+        spriteRenderer.sprite = frogSprite;
     }
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    private IEnumerator LoseLifeSequence()
-    {
-        //enabled = false;
-        spriteRenderer.sprite = ripFrogSprite;
-        yield return new WaitForSeconds(restartDelay);
-
-        spriteRenderer.sprite = frogSprite;
-        //enabled = true;
     }
 }

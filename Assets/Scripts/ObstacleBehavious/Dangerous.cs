@@ -21,7 +21,7 @@ public class Dangerous : MonoBehaviour
         PlayerManager player = collider.GetComponentInParent<PlayerManager>();
         if (player && !(safeIfCarried && player.GetComponent<Carryable>().CheckBeingCarried()))
         {
-            player.PlayerHit();
+            player.StartPlayerHit();
         }
     }
 }
