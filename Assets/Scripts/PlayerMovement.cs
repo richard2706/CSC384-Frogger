@@ -21,11 +21,6 @@ public class PlayerMovement : MonoBehaviour
     private bool resetPosition;
     private Vector2 initialPosition;
 
-    public void ResetPlayerPosition()
-    {
-        resetPosition = true;
-    }
-
     private void Awake()
     {
         playerBody = GetComponent<Rigidbody2D>();
@@ -38,11 +33,13 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         FrogHome.OnFrogReachedHome += ResetPlayerPosition;
+        Dangerous.OnPlayerDangerousCollision += ResetPlayerPosition;
     }
 
     private void OnDisable()
     {
         FrogHome.OnFrogReachedHome -= ResetPlayerPosition;
+        Dangerous.OnPlayerDangerousCollision -= ResetPlayerPosition;
     }
 
     private void Start()
@@ -104,5 +101,10 @@ public class PlayerMovement : MonoBehaviour
             && playerPosition.y >= yMinBound;
 
         return withinGameArea || atEmptyFrogHome;
+    }
+
+    private void ResetPlayerPosition()
+    {
+        resetPosition = true;
     }
 }
