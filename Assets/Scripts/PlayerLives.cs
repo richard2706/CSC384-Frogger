@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
-public class Lives : MonoBehaviour
+public class PlayerLives : MonoBehaviour
 {
     [SerializeField] private int maxLives;
     private int lives;
@@ -8,16 +9,6 @@ public class Lives : MonoBehaviour
     private void Awake()
     {
         lives = maxLives;
-    }
-
-    private void OnEnable()
-    {
-        Dangerous.OnPlayerDangerousCollision += LoseLife;
-    }
-
-    private void OnDisable()
-    {
-        Dangerous.OnPlayerDangerousCollision -= LoseLife;
     }
 
     private void LoseLife()

@@ -1961,9 +1961,11 @@ GameObject:
   - component: {fileID: 1937344608}
   - component: {fileID: 1937344610}
   - component: {fileID: 1937344611}
-  - component: {fileID: 1937344612}
   - component: {fileID: 1937344613}
+  - component: {fileID: 1937344616}
+  - component: {fileID: 1937344612}
   - component: {fileID: 1937344614}
+  - component: {fileID: 1937344615}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2108,6 +2110,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99122c6134e368e4b81ab415b6db767d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLives: 7
+--- !u!114 &1937344615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937344607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ee4ed8b1bbd59409afb312401b79e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frogSprite: {fileID: 21300000, guid: 251b8430a88bd89429aa691b2aabe8ca, type: 3}
+  ripFrogSprite: {fileID: 21300000, guid: 1847c860950108c4396e79dfa495b1ee, type: 3}
+  restartDelay: 1
+--- !u!114 &1937344616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937344607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d8bcbf7ba62734aa0bf2244d501a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1945129886

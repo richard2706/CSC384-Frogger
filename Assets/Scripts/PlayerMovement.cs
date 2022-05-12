@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-// Ensures there is a Rigidbody2D component on any game object that this script is added to.
 [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(CircleCollider2D)), RequireComponent(typeof(Carryable))]
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,6 +18,11 @@ public class PlayerMovement : MonoBehaviour
     private bool resetPosition;
     private Vector2 initialPosition;
 
+    public void ResetPosition()
+    {
+        resetPosition = true;
+    }
+
     private void Awake()
     {
         playerBody = GetComponent<Rigidbody2D>();
@@ -28,18 +30,6 @@ public class PlayerMovement : MonoBehaviour
         nextMovement = Vector2.zero;
         resetPosition = false;
         initialPosition = transform.position;
-    }
-
-    private void OnEnable()
-    {
-        FrogHome.OnFrogReachedHome += ResetPlayerPosition;
-        Dangerous.OnPlayerDangerousCollision += ResetPlayerPosition;
-    }
-
-    private void OnDisable()
-    {
-        FrogHome.OnFrogReachedHome -= ResetPlayerPosition;
-        Dangerous.OnPlayerDangerousCollision -= ResetPlayerPosition;
     }
 
     private void Start()
@@ -101,10 +91,5 @@ public class PlayerMovement : MonoBehaviour
             && playerPosition.y >= yMinBound;
 
         return withinGameArea || atEmptyFrogHome;
-    }
-
-    private void ResetPlayerPosition()
-    {
-        resetPosition = true;
     }
 }
