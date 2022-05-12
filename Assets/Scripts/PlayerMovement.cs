@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 nextMovement;
     private bool resetPosition;
     private Vector2 initialPosition;
-    //private bool // SHould be true if being carried on the river, then don't perform triggerenter2d checks again if true
 
     public void ResetPlayerPosition()
     {

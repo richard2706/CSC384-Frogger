@@ -12,7 +12,7 @@ public class Carrier : MonoBehaviour
         if (canCarry && carryableTarget) collider.transform.parent = transform;
     }
 
-    private void OnTriggerExit2D(Collider2D collider)
+    protected virtual void OnTriggerExit2D(Collider2D collider)
     {
         Carryable carryableTarget = collider.GetComponentInParent<Carryable>();
         if (carryableTarget) collider.transform.parent = null;
