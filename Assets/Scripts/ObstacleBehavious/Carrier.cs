@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Carrier : MonoBehaviour
 {
-    private bool canCarry = true;
+    protected bool canCarry = true;
 
     private void OnTriggerEnter2D(Collider2D collider)
     {

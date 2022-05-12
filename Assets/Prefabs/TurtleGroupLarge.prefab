@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4620453596837782401}
   - component: {fileID: 4620453596837782429}
   - component: {fileID: 796843225080400240}
-  - component: {fileID: -2241415295493001766}
   - component: {fileID: 7097811369394893778}
+  - component: {fileID: 7203251537525718905}
   m_Layer: 6
   m_Name: TurtleGroupLarge
   m_TagString: Untagged
@@ -95,18 +95,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
---- !u!114 &-2241415295493001766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4620453596837782406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf2e43f8a6fa7c94aa242ba1bb122064, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &7097811369394893778
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -149,7 +137,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bec7e56e085fe26489992d0f815b2689, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
   m_Size: {x: 0.3, y: 0.1}
@@ -158,3 +146,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7203251537525718905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4620453596837782406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4992a327eba88419a125c12e5be850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatingTime: 2
+  transitionTime: 1
+  underwaterTime: 0.5
+  floatingSprite: {fileID: 21300000, guid: bec7e56e085fe26489992d0f815b2689, type: 3}
+  transitionSprite: {fileID: 21300000, guid: df274e8f562cde74e99c2e74db510f2d, type: 3}
+  underwaterSprite: {fileID: 21300000, guid: 343be46ce05e35f4d9a37fa76fd4a521, type: 3}
