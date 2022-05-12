@@ -37,12 +37,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        HomeManager.OnFrogReachedHome += ResetPlayerPosition;
+        FrogHome.OnFrogReachedHome += ResetPlayerPosition;
     }
 
     private void OnDisable()
     {
-        HomeManager.OnFrogReachedHome -= ResetPlayerPosition;
+        FrogHome.OnFrogReachedHome -= ResetPlayerPosition;
     }
 
     private void Start()
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         bool atEmptyFrogHome = false;
         if (playerPosition.y > yMaxBound)
         {
-            foreach (HomeManager home in HomeManager.AllHomes)
+            foreach (FrogHome home in FrogHome.AllHomes)
             {
                 bool atFrogHome = Vector2.Distance(home.Position, playerPosition) <= (home.ColliderSize.x / 2);
                 atEmptyFrogHome = atFrogHome && !home.IsTaken;

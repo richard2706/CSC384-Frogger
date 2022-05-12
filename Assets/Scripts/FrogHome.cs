@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class HomeManager : MonoBehaviour
+public class FrogHome : MonoBehaviour
 {
     public static event Action OnFrogReachedHome;
 
-    private static List<HomeManager> allHomes = new List<HomeManager>();
+    private static List<FrogHome> allHomes = new List<FrogHome>();
 
-    public static HomeManager[] AllHomes => allHomes.ToArray();
+    public static FrogHome[] AllHomes => allHomes.ToArray();
     private static bool AllHomesFilled => allHomes.TrueForAll(HomeIsTaken);
-    private static bool HomeIsTaken(HomeManager home) => home.IsTaken;
+    private static bool HomeIsTaken(FrogHome home) => home.IsTaken;
 
     public bool IsTaken { get; private set; }
     public Vector2 Position => homeTransform.position;

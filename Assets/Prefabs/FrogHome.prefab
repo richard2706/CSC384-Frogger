@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6013686508366885690}
   - component: {fileID: 6013686508366885688}
-  - component: {fileID: 6013686508366885691}
   - component: {fileID: 8080120847434782229}
+  - component: {fileID: 1907036110995775832}
   m_Layer: 0
   m_Name: FrogHome
   m_TagString: Untagged
@@ -60,18 +60,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6013686508366885691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6013686508366885693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e011b243fd59aa542897b7bcb5bece4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &8080120847434782229
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -123,6 +111,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1907036110995775832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6013686508366885693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e011b243fd59aa542897b7bcb5bece4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7374570446303318824
 GameObject:
   m_ObjectHideFlags: 0

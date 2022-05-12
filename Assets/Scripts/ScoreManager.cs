@@ -30,7 +30,7 @@ public class ScoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        HomeManager.OnFrogReachedHome += UpdateScoreOnFrogReachedHome;
+        FrogHome.OnFrogReachedHome += UpdateScoreOnFrogReachedHome;
     }
 
     private void UpdateScoreOnFrogReachedHome()

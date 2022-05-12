@@ -2119,5 +2119,6 @@ PrefabInstance:
       propertyPath: m_MaskInteraction
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6013686508366885691, guid: 1eb6a0b96944633469d327a54984bd40, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1eb6a0b96944633469d327a54984bd40, type: 3}
