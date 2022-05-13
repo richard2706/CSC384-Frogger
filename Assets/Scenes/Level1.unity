@@ -1153,7 +1153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b69d6946a6bccd4fa727cce3df62507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeIfCarried: 0
 --- !u!61 &893633425
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1563,8 +1562,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: RiverStrip
       objectReference: {fileID: 0}
+    - target: {fileID: 5856062714340956249, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8023100105258059306, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
+    - {fileID: 806685102635767830, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e0ecadc84ef4fa94d834b91d28ad86ad, type: 3}
 --- !u!1001 &1260641470
 PrefabInstance:
@@ -1833,7 +1837,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b69d6946a6bccd4fa727cce3df62507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeIfCarried: 0
 --- !u!61 &1423396196
 BoxCollider2D:
   m_ObjectHideFlags: 0

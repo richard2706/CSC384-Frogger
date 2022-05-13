@@ -1,27 +1,17 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour which causes the player to lose a life on contact.
+/// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class Dangerous : MonoBehaviour
 {
-    [SerializeField] private bool safeIfCarried; // if true, player is safe if they are being carried
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        CheckPlayerCollision(collider);
-    }
-
-    private void OnTriggerStay2D(Collider2D collider)
-    {
-        CheckPlayerCollision(collider);
-    }
-
-    private void CheckPlayerCollision(Collider2D collider)
+    protected virtual void OnTriggerEnter2D(Collider2D collider)
     {
         PlayerManager player = collider.GetComponentInParent<PlayerManager>();
-        if (player && !(safeIfCarried && player.GetComponent<Carryable>().CheckBeingCarried()))
-        {
-            player.StartPlayerHit();
-        }
+        if (player) player.StartPlayerHit();
     }
+
+    // protected method to check if colliding with player
 }
