@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Behaviour which causes the player to lose a life if they are not being carried by a <see cref="Carrier"/>.
 /// </summary>
-/// [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class DangerousTerrain : Dangerous
 {
     private PlayerManager playerOnTerrain;
