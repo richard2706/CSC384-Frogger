@@ -34,9 +34,12 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator PlayerHit()
     {
+        playerMovement.enabled = false;
         spriteManager.ShowRipSprite();
         playerLives.LoseLife();
         yield return new WaitForSeconds(loseLifeRestartDelay);
+
+        playerMovement.enabled = true;
         playerMovement.ResetPosition();
         yield return new WaitForFixedUpdate();
         spriteManager.ShowFrogSprite();
