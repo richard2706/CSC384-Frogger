@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -11,9 +12,15 @@ public class DangerousTerrain : Dangerous
     /// <summary>
     /// Determines if player should be damaged by checking if the player is still being carried.
     /// </summary>
-    public void CheckPlayerCollision()
+    public void CheckPlayerTerrainCollision()
     {
-        if (playerOnTerrain && !playerOnTerrain.GetComponent<Carryable>().CheckBeingCarried())
+        StartCoroutine(ExecutePlayerTerrainCollisionCheck());
+    }
+
+    private IEnumerator ExecutePlayerTerrainCollisionCheck()
+    {
+        yield return new WaitForFixedUpdate();
+        if (playerOnTerrain && !playerOnTerrain.GetComponent<Carryable>().BeingCarried)
         {
             playerOnTerrain.StartPlayerHit();
         }
@@ -25,7 +32,7 @@ public class DangerousTerrain : Dangerous
         if (player)
         {
             playerOnTerrain = player;
-            CheckPlayerCollision();
+            CheckPlayerTerrainCollision();
             return;
         }
 
