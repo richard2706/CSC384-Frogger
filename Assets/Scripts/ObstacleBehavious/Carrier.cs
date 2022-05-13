@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -9,7 +10,11 @@ public class Carrier : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         Carryable carryableTarget = collider.GetComponentInParent<Carryable>();
-        if (canCarry && carryableTarget) collider.transform.parent = transform;
+        if (canCarry && carryableTarget)
+        {
+            carryableTarget.transform.parent = transform;
+            carryableTarget.BeingCarried = true;
+        }
     }
 
     protected virtual void OnTriggerExit2D(Collider2D collider)
@@ -17,11 +22,12 @@ public class Carrier : MonoBehaviour
         Carryable carryableTarget = collider.GetComponentInParent<Carryable>();
         if (carryableTarget)
         {
-            collider.transform.parent = null;
+            carryableTarget.transform.parent = null;
+            carryableTarget.BeingCarried = false;
 
             if (Terrain && collider.GetComponentInParent<PlayerManager>())
             {
-                Terrain.CheckPlayerCollision();
+                Terrain.CheckPlayerTerrainCollision();
             }
         }
     }
