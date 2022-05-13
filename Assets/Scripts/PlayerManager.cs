@@ -19,12 +19,12 @@ public class PlayerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        FrogHome.OnFrogReachedHome += StartPlayerHit;
+        FrogHome.OnFrogReachedHome += playerMovement.ResetPosition;
     }
 
     private void OnDisable()
     {
-        FrogHome.OnFrogReachedHome -= StartPlayerHit;
+        FrogHome.OnFrogReachedHome -= playerMovement.ResetPosition;
     }
 
     public void StartPlayerHit()

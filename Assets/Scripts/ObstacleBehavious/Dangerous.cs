@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -7,11 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Dangerous : MonoBehaviour
 {
-    protected virtual void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
         PlayerManager player = collider.GetComponentInParent<PlayerManager>();
         if (player) player.StartPlayerHit();
     }
-
-    // protected method to check if colliding with player
 }
