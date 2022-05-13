@@ -1,10 +1,10 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class Carrier : MonoBehaviour
 {
     protected bool canCarry = true;
+    public DangerousTerrain Terrain { get; set; } // terrain this carrier is over
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -15,6 +15,14 @@ public class Carrier : MonoBehaviour
     protected virtual void OnTriggerExit2D(Collider2D collider)
     {
         Carryable carryableTarget = collider.GetComponentInParent<Carryable>();
-        if (carryableTarget) collider.transform.parent = null;
+        if (carryableTarget)
+        {
+            collider.transform.parent = null;
+
+            if (Terrain && collider.GetComponentInParent<PlayerManager>())
+            {
+                Terrain.CheckPlayerCollision();
+            }
+        }
     }
 }
