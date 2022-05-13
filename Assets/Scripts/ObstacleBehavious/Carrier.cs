@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -21,8 +22,14 @@ public class Carrier : MonoBehaviour
 
             if (Terrain && collider.GetComponentInParent<PlayerManager>())
             {
-                Terrain.CheckPlayerCollision();
+                StartCoroutine(CheckPlayerTerrainCollision());
             }
         }
+    }
+
+    private IEnumerator CheckPlayerTerrainCollision()
+    {
+        yield return new WaitForFixedUpdate();
+        Terrain.CheckPlayerCollision();
     }
 }

@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     {
         playerBody = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<CircleCollider2D>();
-        playerCarryable = GetComponent<Carryable>();
         nextMovement = Vector2.zero;
         resetPosition = false;
         initialPosition = transform.position;
