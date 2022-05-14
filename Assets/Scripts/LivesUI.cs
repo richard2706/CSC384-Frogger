@@ -1,6 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// Displays the specified player's number of lives.
+/// </summary>
 public class LivesUI : MonoBehaviour
 {
     private const float lifeSpriteWidth = 37f;
