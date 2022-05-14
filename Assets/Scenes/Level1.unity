@@ -2234,10 +2234,10 @@ RectTransform:
   m_Father: {fileID: 63758730}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 381.4, y: -25}
-  m_SizeDelta: {x: -929, y: 36}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 393.9, y: -25}
+  m_SizeDelta: {x: 0, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2048066682
 MonoBehaviour:
@@ -2289,6 +2289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d34726f109380c44866bb1582e41f42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLives: {fileID: 1937344614}
 --- !u!1001 &6013686506815164814
 PrefabInstance:
   m_ObjectHideFlags: 0

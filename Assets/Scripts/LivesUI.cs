@@ -5,62 +5,38 @@ public class LivesUI : MonoBehaviour
 {
     private const float lifeSpriteWidth = 37f;
 
+    [SerializeField] private PlayerLives playerLives;
+
     private RectTransform livesTransform;
-    private int displayedNumLives;
     private Vector2 initialAnchoredPosition;
 
     private void Awake()
     {
         livesTransform = GetComponent<RectTransform>();
         initialAnchoredPosition = livesTransform.anchoredPosition;
-        //lifeSpriteWidth = livesTransform.rect.width;
     }
 
     private void OnEnable()
     {
-        PlayerManager.OnPlayerLoseLife += RemoveLife;
-    }
-
-    private void Start()
-    {
-        // set number of lives from lives script
-        displayedNumLives = 7;
-
-        float width = displayedNumLives * lifeSpriteWidth;
-        float height = livesTransform.sizeDelta.y;
-        livesTransform.sizeDelta = new Vector2(width, height);
-
-        livesTransform.anchoredPosition = new Vector2(initialAnchoredPosition.x - width / 2, initialAnchoredPosition.y);
-
-        //Debug.Log(livesTransform.anchoredPosition);
-
-        //livesTransform.anchoredPosition 
+        PlayerManager.OnPlayerLoseLife += DisplayLives;
     }
 
     private void OnDisable()
     {
-        PlayerManager.OnPlayerLoseLife -= RemoveLife;
+        PlayerManager.OnPlayerLoseLife -= DisplayLives;
     }
 
-    private void AddLife()
+    private void Start()
     {
-        displayedNumLives++;
-        float width = livesTransform.sizeDelta.x + lifeSpriteWidth;
+        DisplayLives(playerLives);
+    }
+
+    private void DisplayLives(PlayerLives lives)
+    {
+        if (lives.Lives < 0 || lives != playerLives) return;
+        float width = lives.Lives * lifeSpriteWidth;
         float height = livesTransform.sizeDelta.y;
         livesTransform.sizeDelta = new Vector2(width, height);
+        livesTransform.anchoredPosition = new Vector2(initialAnchoredPosition.x - width / 2, initialAnchoredPosition.y);
     }
-
-    private void RemoveLife()
-    {
-        if (displayedNumLives <= 0) return;
-        displayedNumLives--;
-        float width = livesTransform.sizeDelta.x - lifeSpriteWidth;
-        float height = livesTransform.sizeDelta.y;
-        livesTransform.sizeDelta = new Vector2(width, height);
-    }
-
-    //private void DisplayLives(int numLives)
-    //{
-
-    //}
 }

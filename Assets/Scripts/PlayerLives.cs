@@ -4,18 +4,18 @@ using UnityEngine;
 public class PlayerLives : MonoBehaviour
 {
     [SerializeField] private int maxLives;
-    private int lives;
+    public int Lives { get; private set; }
 
     private void Awake()
     {
-        lives = maxLives;
+        Lives = maxLives;
     }
 
     public void LoseLife()
     {
-        lives--;
-        if (lives < 0) lives = 0;
-        if (lives == 0)
+        Lives--;
+        if (Lives < 0) Lives = 0;
+        if (Lives == 0)
         {
             Debug.Log("ALl lives lost. Game over.");
         }

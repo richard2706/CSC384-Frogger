@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMovement)), RequireComponent(typeof(PlayerSpriteManager)), RequireComponent(typeof(PlayerLives))]
 public class PlayerManager : MonoBehaviour
 {
-    public static event Action OnPlayerLoseLife;
+    public static event Action<PlayerLives> OnPlayerLoseLife;
 
     [SerializeField] private float loseLifeRestartDelay;
 
@@ -33,14 +33,14 @@ public class PlayerManager : MonoBehaviour
     public void PlayerLoseLife()
     {
         StartCoroutine(ExecutePlayerLoseLife());
-        OnPlayerLoseLife?.Invoke();
+        playerLives.LoseLife();
+        OnPlayerLoseLife?.Invoke(playerLives);
     }
 
     private IEnumerator ExecutePlayerLoseLife()
     {
         playerMovement.enabled = false;
         spriteManager.ShowRipSprite();
-        playerLives.LoseLife();
         yield return new WaitForSeconds(loseLifeRestartDelay);
 
         playerMovement.enabled = true;
