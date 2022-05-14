@@ -30,8 +30,7 @@ public class LivesUI : MonoBehaviour
         float height = livesTransform.sizeDelta.y;
         livesTransform.sizeDelta = new Vector2(width, height);
 
-        Vector2 newPosition = new Vector2(initialAnchoredPosition.x - width / 2, initialAnchoredPosition.y);
-        livesTransform.anchoredPosition = newPosition;
+        livesTransform.anchoredPosition = new Vector2(initialAnchoredPosition.x - width / 2, initialAnchoredPosition.y);
 
         //Debug.Log(livesTransform.anchoredPosition);
 
