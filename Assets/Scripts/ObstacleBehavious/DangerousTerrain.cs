@@ -22,7 +22,7 @@ public class DangerousTerrain : Dangerous
         yield return new WaitForFixedUpdate();
         if (playerOnTerrain && !playerOnTerrain.GetComponent<Carryable>().BeingCarried)
         {
-            playerOnTerrain.StartPlayerHit();
+            playerOnTerrain.PlayerLoseLife();
         }
     }
 

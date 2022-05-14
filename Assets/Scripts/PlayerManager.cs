@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement)), RequireComponent(typeof(PlayerSpriteManager)), RequireComponent(typeof(PlayerLives))]
 public class PlayerManager : MonoBehaviour
 {
+    public static event Action OnPlayerLoseLife;
+
     [SerializeField] private float loseLifeRestartDelay;
 
     private PlayerMovement playerMovement;
@@ -27,12 +30,13 @@ public class PlayerManager : MonoBehaviour
         FrogHome.OnFrogReachedHome -= playerMovement.ResetPosition;
     }
 
-    public void StartPlayerHit()
+    public void PlayerLoseLife()
     {
-        StartCoroutine(PlayerHit());
+        StartCoroutine(ExecutePlayerLoseLife());
+        OnPlayerLoseLife?.Invoke();
     }
 
-    private IEnumerator PlayerHit()
+    private IEnumerator ExecutePlayerLoseLife()
     {
         playerMovement.enabled = false;
         spriteManager.ShowRipSprite();

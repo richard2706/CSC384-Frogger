@@ -9,6 +9,6 @@ public class Dangerous : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         PlayerManager player = collider.GetComponentInParent<PlayerManager>();
-        if (player) player.StartPlayerHit();
+        if (player) player.PlayerLoseLife();
     }
 }
