@@ -70,6 +70,6 @@ public class CarrierTurtles : Carrier
     private void StopAnimation()
     {
         Debug.Log("stop turtle animation");
-        StopCoroutine(ToggleTurtles());
+        StopAllCoroutines();
     }
 }
