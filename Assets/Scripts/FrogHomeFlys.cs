@@ -1,21 +1,37 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(FrogHome))]
+[RequireComponent(typeof(FrogHome)), RequireComponent(typeof(Collider2D))]
 public class FrogHomeFlys : MonoBehaviour
 {
-    public bool ContainsFly { get; private set; }
+    public static event Action OnFlyEaten;
 
     [SerializeField] private float minFlyInterval;
     [SerializeField] private float maxFlyInterval;
     [SerializeField] private float flyStayDuration;
 
+    private FrogHome frogHome;
     private HomeInside homeInside;
+    private bool containsFly;
 
     private void Awake()
     {
-        ContainsFly = false;
+        containsFly = false;
+        frogHome = GetComponent<FrogHome>();
         homeInside = GetComponentInChildren<HomeInside>();
+    }
+
+    private void OnEnable()
+    {
+        PlayerLives.OnLevelLost += DisableFlys;
+        FrogHome.OnLevelWon += DisableFlys;
+    }
+
+    private void OnDisable()
+    {
+        PlayerLives.OnLevelLost -= DisableFlys;
+        FrogHome.OnLevelWon -= DisableFlys;
     }
 
     private void Start()
@@ -23,41 +39,35 @@ public class FrogHomeFlys : MonoBehaviour
         StartCoroutine(ToggleFlyLoop());
     }
 
-    private void OnEnable()
-    {
-        FrogHome.OnFrogReachedHome += DisableFlys;
-        PlayerLives.OnLevelLost += DisableFlys;
-        FrogHome.OnLevelWon += DisableFlys;
-    }
-
-    private void OnDisable()
-    {
-        FrogHome.OnFrogReachedHome -= DisableFlys;
-        PlayerLives.OnLevelLost -= DisableFlys;
-        FrogHome.OnLevelWon -= DisableFlys;
-    }
-
     private IEnumerator ToggleFlyLoop()
     {
-        float timeToFirstFly = Random.Range(0, maxFlyInterval);
+        float timeToFirstFly = UnityEngine.Random.Range(0, maxFlyInterval);
         yield return new WaitForSeconds(timeToFirstFly);
 
-        while (true)
+        while (!frogHome.IsFilled)
         {
-            ContainsFly = true;
+            containsFly = true;
             homeInside.ShowFly();
             yield return new WaitForSeconds(flyStayDuration);
 
             homeInside.HideFly();
-            ContainsFly = false;
-            float betweenFlyInterval = Random.Range(minFlyInterval, maxFlyInterval);
+            containsFly = false;
+            float betweenFlyInterval = UnityEngine.Random.Range(minFlyInterval, maxFlyInterval);
             yield return new WaitForSeconds(betweenFlyInterval);
         }
     }
 
-    public void DisableFlys()
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.GetComponentInParent<PlayerMovement>())
+        {
+            DisableFlys();
+            if (containsFly) OnFlyEaten?.Invoke();
+        }
+    }
+
+    private void DisableFlys()
     {
         StopAllCoroutines();
-        enabled = false;
     }
 }

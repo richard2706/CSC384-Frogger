@@ -33,6 +33,7 @@ public class ScoreManager : MonoBehaviour
     {
         FrogHome.OnFrogReachedHome += UpdateScoreOnFrogReachedHome;
         PlayerMovement.OnIncreaseMaxForwardStep += UpdateScoreOnForwardStep;
+        FrogHomeFlys.OnFlyEaten += UpdateScoreOnFlyEaten;
         FrogHome.OnLevelWon += IncreaseScoreOnAllHomesFilled;
     }
 
@@ -40,6 +41,7 @@ public class ScoreManager : MonoBehaviour
     {
         FrogHome.OnFrogReachedHome -= UpdateScoreOnFrogReachedHome;
         PlayerMovement.OnIncreaseMaxForwardStep -= UpdateScoreOnForwardStep;
+        FrogHomeFlys.OnFlyEaten -= UpdateScoreOnFlyEaten;
         FrogHome.OnLevelWon -= IncreaseScoreOnAllHomesFilled;
     }
 
@@ -59,6 +61,12 @@ public class ScoreManager : MonoBehaviour
     {
         int points = forwardStepPoints * forwardSteps;
         IncreaseScore(points);
+        OnScoreChange?.Invoke(this);
+    }
+
+    private void UpdateScoreOnFlyEaten()
+    {
+        IncreaseScore(eatFlyPoints);
         OnScoreChange?.Invoke(this);
     }
 }
