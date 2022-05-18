@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(FrogHome))]
-public class FlysInsideHome : MonoBehaviour
+public class FrogHomeFlys : MonoBehaviour
 {
     public bool ContainsFly { get; private set; }
 
@@ -39,7 +39,7 @@ public class FlysInsideHome : MonoBehaviour
 
     private IEnumerator ToggleFlyLoop()
     {
-        float timeToFirstFly = UnityEngine.Random.Range(0, maxFlyInterval);
+        float timeToFirstFly = Random.Range(0, maxFlyInterval);
         yield return new WaitForSeconds(timeToFirstFly);
 
         while (true)
@@ -50,15 +50,14 @@ public class FlysInsideHome : MonoBehaviour
 
             homeInside.HideFly();
             ContainsFly = false;
-            float betweenFlyInterval = UnityEngine.Random.Range(minFlyInterval, maxFlyInterval);
+            float betweenFlyInterval = Random.Range(minFlyInterval, maxFlyInterval);
             yield return new WaitForSeconds(betweenFlyInterval);
         }
     }
 
-    private void DisableFlys()
+    public void DisableFlys()
     {
         StopAllCoroutines();
-        homeInside.HideFly();
         enabled = false;
     }
 }

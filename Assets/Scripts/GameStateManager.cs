@@ -10,13 +10,13 @@ public class GameStateManager : MonoBehaviour
 
     private PlayerManager[] players;
     private Spawner[] spawners;
-    private FlysInsideHome[] frogHomeFlys;
+    private FrogHomeFlys[] frogHomeFlys;
 
     private void Awake()
     {
         players = FindObjectsOfType<PlayerManager>(true);
         spawners = FindObjectsOfType<Spawner>(true);
-        frogHomeFlys = FindObjectsOfType<FlysInsideHome>(true);
+        frogHomeFlys = FindObjectsOfType<FrogHomeFlys>(true);
     }
 
     private void OnEnable()
@@ -61,7 +61,7 @@ public class GameStateManager : MonoBehaviour
         bool keyPressed = false;
         while (!keyPressed)
         {
-            if (Input.anyKey)
+            if (Input.anyKeyDown)
             {
                 keyPressed = true;
                 StartLevel();
@@ -83,7 +83,7 @@ public class GameStateManager : MonoBehaviour
         bool keyPressed = false;
         while (!keyPressed)
         {
-            if (Input.anyKey)
+            if (Input.anyKeyDown)
             {
                 keyPressed = true;
                 RestartLevel();

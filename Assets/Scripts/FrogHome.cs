@@ -22,6 +22,7 @@ public class FrogHome : MonoBehaviour
     private Transform homeTransform;
     private Collider2D homeCollider;
     private HomeInside homeInside;
+    private FrogHomeFlys flyBehaviour;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class FrogHome : MonoBehaviour
         homeTransform = transform;
         homeCollider = GetComponent<Collider2D>();
         homeInside = GetComponentInChildren<HomeInside>();
+        flyBehaviour = GetComponent<FrogHomeFlys>();
     }
 
     private void OnEnable()
@@ -52,6 +54,7 @@ public class FrogHome : MonoBehaviour
     private void FillHome()
     {
         OnFrogReachedHome?.Invoke();
+        if (flyBehaviour) flyBehaviour.DisableFlys();
         homeInside.ShowFrog();
 
         IsFilled = true;
