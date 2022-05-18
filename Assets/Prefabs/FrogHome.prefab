@@ -123,6 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e011b243fd59aa542897b7bcb5bece4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minFlyInterval: 7
+  maxFlyInterval: 13
+  flyStayDuration: 3
 --- !u!1 &7374570446303318824
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,3 +222,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frogSprite: {fileID: 21300000, guid: 251b8430a88bd89429aa691b2aabe8ca, type: 3}
+  flySprite: {fileID: 21300000, guid: 4d4b3f7f78ebb0c4da553ccf4f522112, type: 3}
