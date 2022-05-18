@@ -1,31 +1,32 @@
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
 public class ScoreManager : MonoBehaviour
 {
-    private const int FrogReachHomePoints = 50;
+    private const int homeFilledPoints = 50;
+    private const int forwardStepPoints = 10;
+    private const int unusedHalfSecondPoints = 10;
+    private const int eatFlyPoints = 200;
+    private const int allFrogsHomePoints = 1000;
 
-    private static int score = 0;
-    private static Text scoreText;
+    public static event Action<ScoreManager> OnScoreChange;
 
-    public static int IncreaseScore(int points)
+    public int Score { get; private set; }
+
+    public int IncreaseScore(int points)
     {
-        score += points;
-        UpdateScoreUI();
-        return score;
-    }
-
-    private static void UpdateScoreUI()
-    {
-        scoreText.text = score.ToString();
+        Score += points;
+        return Score;
     }
 
     private void Awake()
     {
-        scoreText = GetComponent<Text>();
-        UpdateScoreUI();
-        scoreText.text = score.ToString();
+        Score = 0;
+    }
+
+    private void Start()
+    {
+        OnScoreChange?.Invoke(this);
     }
 
     private void OnEnable()
@@ -33,8 +34,14 @@ public class ScoreManager : MonoBehaviour
         FrogHome.OnFrogReachedHome += UpdateScoreOnFrogReachedHome;
     }
 
+    private void OnDisable()
+    {
+        FrogHome.OnFrogReachedHome -= UpdateScoreOnFrogReachedHome;
+    }
+
     private void UpdateScoreOnFrogReachedHome()
     {
-        IncreaseScore(FrogReachHomePoints);
+        IncreaseScore(homeFilledPoints);
+        OnScoreChange?.Invoke(this);
     }
 }
