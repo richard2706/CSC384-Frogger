@@ -26,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     public void ResetPosition()
     {
         resetPosition = true;
-        maxForwardSteps = 0;
         currentForwardSteps = 0;
     }
 
@@ -43,12 +42,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
+        FrogHome.OnFrogReachedHome += ResetMaxForwardSteps;
         PlayerLives.OnLevelLost += DisableMovement;
         FrogHome.OnLevelWon += DisableMovement;
     }
 
     private void OnDisable()
     {
+        FrogHome.OnFrogReachedHome -= ResetMaxForwardSteps;
         PlayerLives.OnLevelLost -= DisableMovement;
         FrogHome.OnLevelWon -= DisableMovement;
     }
@@ -132,5 +133,10 @@ public class PlayerMovement : MonoBehaviour
             maxForwardSteps = currentForwardSteps;
             OnIncreaseMaxForwardStep?.Invoke(forwardSteps);
         }
+    }
+
+    private void ResetMaxForwardSteps()
+    {
+        maxForwardSteps = 0;
     }
 }
