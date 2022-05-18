@@ -20,11 +20,13 @@ public class PlayerManager : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerLives.OnGameOver += StopOngoingPlayerActions;
         FrogHome.OnFrogReachedHome += playerMovement.ResetPosition;
     }
 
     private void OnDisable()
     {
+        PlayerLives.OnGameOver -= StopOngoingPlayerActions;
         FrogHome.OnFrogReachedHome -= playerMovement.ResetPosition;
     }
 
@@ -44,5 +46,10 @@ public class PlayerManager : MonoBehaviour
         playerMovement.ResetPosition();
         yield return new WaitForFixedUpdate();
         spriteManager.ShowFrogSprite();
+    }
+
+    private void StopOngoingPlayerActions()
+    {
+        StopAllCoroutines();
     }
 }
