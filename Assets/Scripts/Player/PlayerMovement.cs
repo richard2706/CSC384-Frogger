@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(CircleCollider2D)), RequireComponent(typeof(Carryable))]
 public class PlayerMovement : MonoBehaviour
 {
+    public static event Action<int> OnIncreaseMaxForwardStep;
+
     [SerializeField] private SpriteRenderer boundingGameArea; // Player can move within bounds of this sprite.
 
     // Bounding coordinates for player movement
@@ -17,10 +20,14 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 nextMovement;
     private bool resetPosition;
     private Vector2 initialPosition;
+    private int maxForwardSteps;
+    private int currentForwardSteps;
 
     public void ResetPosition()
     {
         resetPosition = true;
+        maxForwardSteps = 0;
+        currentForwardSteps = 0;
     }
 
     private void Awake()
@@ -30,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
         nextMovement = Vector2.zero;
         resetPosition = false;
         initialPosition = transform.position;
+        maxForwardSteps = 0;
+        currentForwardSteps = 0;
     }
 
     private void OnEnable()
@@ -70,7 +79,11 @@ public class PlayerMovement : MonoBehaviour
         else if (nextMovement != Vector2.zero)
         {
             Vector2 newPosition = playerBody.position + nextMovement;
-            if (PlayerPositionValid(newPosition)) playerBody.MovePosition(newPosition);
+            if (PlayerPositionValid(newPosition))
+            {
+                playerBody.MovePosition(newPosition);
+                UpdateForwardStepCount(nextMovement);
+            }
         }
         nextMovement = Vector2.zero;
     }
@@ -108,5 +121,16 @@ public class PlayerMovement : MonoBehaviour
             && playerPosition.y >= yMinBound;
 
         return withinGameArea || atEmptyFrogHome;
+    }
+
+    private void UpdateForwardStepCount(Vector2 playerMovement)
+    {
+        int forwardSteps = (int) Math.Floor(playerMovement.y);
+        currentForwardSteps += forwardSteps;
+        if (currentForwardSteps > maxForwardSteps)
+        {
+            maxForwardSteps = currentForwardSteps;
+            OnIncreaseMaxForwardStep?.Invoke(forwardSteps);
+        }
     }
 }

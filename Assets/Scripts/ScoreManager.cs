@@ -32,12 +32,14 @@ public class ScoreManager : MonoBehaviour
     private void OnEnable()
     {
         FrogHome.OnFrogReachedHome += UpdateScoreOnFrogReachedHome;
+        PlayerMovement.OnIncreaseMaxForwardStep += UpdateScoreOnForwardStep;
         FrogHome.OnLevelWon += IncreaseScoreOnAllHomesFilled;
     }
 
     private void OnDisable()
     {
         FrogHome.OnFrogReachedHome -= UpdateScoreOnFrogReachedHome;
+        PlayerMovement.OnIncreaseMaxForwardStep -= UpdateScoreOnForwardStep;
         FrogHome.OnLevelWon -= IncreaseScoreOnAllHomesFilled;
     }
 
@@ -50,6 +52,13 @@ public class ScoreManager : MonoBehaviour
     private void IncreaseScoreOnAllHomesFilled()
     {
         IncreaseScore(allHomesFilledPoints);
+        OnScoreChange?.Invoke(this);
+    }
+
+    private void UpdateScoreOnForwardStep(int forwardSteps)
+    {
+        int points = forwardStepPoints * forwardSteps;
+        IncreaseScore(points);
         OnScoreChange?.Invoke(this);
     }
 }
