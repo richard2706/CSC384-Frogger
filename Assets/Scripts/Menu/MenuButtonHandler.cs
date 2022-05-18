@@ -1,9 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuButtonHandler : MonoBehaviour
 {
     [SerializeField] GameObject creditsPanel;
+    [SerializeField] GameObject achievementsPanel;
 
     public void ContinueGame()
     {
@@ -12,7 +13,7 @@ public class MenuButtonHandler : MonoBehaviour
 
     public void RestartGame()
     {
-        Debug.Log("Restart game");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void ShowChangeProfilePanel()
@@ -27,7 +28,12 @@ public class MenuButtonHandler : MonoBehaviour
 
     public void ShowAchievementsPanel()
     {
-        Debug.Log("Achievements");
+        achievementsPanel.SetActive(true);
+    }
+
+    public void HideAchievementsPanel()
+    {
+        achievementsPanel.SetActive(false);
     }
 
     public void ShowCreditsPanel()
