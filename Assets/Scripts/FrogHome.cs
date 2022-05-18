@@ -12,20 +12,22 @@ public class FrogHome : MonoBehaviour
 
     public static FrogHome[] AllHomes => allHomes.ToArray();
     private static bool AllHomesFilled => allHomes.TrueForAll(HomeIsTaken);
-    private static bool HomeIsTaken(FrogHome home) => home.IsTaken;
+    private static bool HomeIsTaken(FrogHome home) => home.IsFilled;
 
-    public bool IsTaken { get; private set; }
+    public bool IsFilled { get; private set; }
     public Vector2 Position => homeTransform.position;
     public Vector2 ColliderSize => homeCollider.bounds.size;
 
     private Transform homeTransform;
     private Collider2D homeCollider;
+    private HomeInside homeInside;
 
     private void Awake()
     {
+        IsFilled = false;
         homeTransform = transform;
         homeCollider = GetComponent<Collider2D>();
-        IsTaken = false;
+        homeInside = GetComponentInChildren<HomeInside>();
     }
 
     private void OnEnable()
@@ -40,18 +42,18 @@ public class FrogHome : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (!IsTaken && collider.GetComponentInParent<PlayerMovement>())
+        if (!IsFilled && collider.GetComponentInParent<PlayerMovement>())
         {
-            OnFrogReachedHome?.Invoke();
             FillHome();
         }
     }
 
     private void FillHome()
     {
-        homeTransform.GetChild(0).gameObject.SetActive(true);
+        OnFrogReachedHome?.Invoke();
+        homeInside.ShowFrog();
 
-        IsTaken = true;
+        IsFilled = true;
         if (AllHomesFilled)
         {
             OnLevelWon?.Invoke();
