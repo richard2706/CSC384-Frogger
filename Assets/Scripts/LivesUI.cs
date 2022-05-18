@@ -10,12 +10,10 @@ public class LivesUI : MonoBehaviour
     [SerializeField] private PlayerLives playerLives;
 
     private RectTransform livesTransform;
-    private Vector2 initialAnchoredPosition;
 
     private void Awake()
     {
         livesTransform = GetComponent<RectTransform>();
-        initialAnchoredPosition = livesTransform.anchoredPosition;
     }
 
     private void OnEnable()
@@ -36,9 +34,9 @@ public class LivesUI : MonoBehaviour
     private void DisplayLives(PlayerLives lives)
     {
         if (lives.Lives < 0 || lives != playerLives) return;
+
         float width = lives.Lives * lifeSpriteWidth;
         float height = livesTransform.sizeDelta.y;
         livesTransform.sizeDelta = new Vector2(width, height);
-        livesTransform.anchoredPosition = new Vector2(initialAnchoredPosition.x - width / 2, initialAnchoredPosition.y);
     }
 }
