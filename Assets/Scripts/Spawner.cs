@@ -22,11 +22,13 @@ public class Spawner : MonoBehaviour
     private void OnEnable()
     {
         PlayerLives.OnLevelLost += StopSpawning;
+        FrogHome.OnLevelWon += StopSpawning;
     }
 
     private void OnDisable()
     {
         PlayerLives.OnLevelLost -= StopSpawning;
+        FrogHome.OnLevelWon -= StopSpawning;
     }
 
     private void Update()

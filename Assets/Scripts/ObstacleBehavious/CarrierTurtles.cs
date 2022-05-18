@@ -28,11 +28,13 @@ public class CarrierTurtles : Carrier
     private void OnEnable()
     {
         PlayerLives.OnLevelLost += StopAnimation;
+        FrogHome.OnLevelWon += StopAnimation;
     }
 
     private void OnDisable()
     {
         PlayerLives.OnLevelLost -= StopAnimation;
+        FrogHome.OnLevelWon -= StopAnimation;
     }
 
     private void Start()

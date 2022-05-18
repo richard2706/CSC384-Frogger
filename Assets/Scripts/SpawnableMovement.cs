@@ -21,11 +21,13 @@ public class SpawnableMovement : MonoBehaviour
     private void OnEnable()
     {
         PlayerLives.OnLevelLost += DisableMovement;
+        FrogHome.OnLevelWon += DisableMovement;
     }
 
     private void OnDisable()
     {
         PlayerLives.OnLevelLost -= DisableMovement;
+        FrogHome.OnLevelWon -= DisableMovement;
     }
 
     private void FixedUpdate()
