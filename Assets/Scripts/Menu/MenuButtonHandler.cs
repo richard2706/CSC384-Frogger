@@ -3,8 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtonHandler : MonoBehaviour
 {
-    [SerializeField] GameObject creditsPanel;
-    [SerializeField] GameObject achievementsPanel;
+    [SerializeField] private GameObject creditsPanel;
+    [SerializeField] private GameObject achievementsPanel;
+    [SerializeField] private GameObject profilePanel;
 
     public void ContinueGame()
     {
@@ -16,9 +17,13 @@ public class MenuButtonHandler : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void ShowChangeProfilePanel()
+    public void ShowProfilePanel()
     {
-        Debug.Log("Change profile");
+        profilePanel.SetActive(true);
+    }
+    public void HideProfilePanel()
+    {
+        profilePanel.SetActive(false);
     }
 
     public void StartTwoPlayerGame()
