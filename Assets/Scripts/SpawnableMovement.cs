@@ -18,10 +18,25 @@ public class SpawnableMovement : MonoBehaviour
         spawnableRigidbody = GetComponent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
+    private void OnEnable()
+    {
+        PlayerLives.OnGameOver += DisableMovement;
+    }
+
+    private void OnDisable()
+    {
+        PlayerLives.OnGameOver -= DisableMovement;
+    }
+
+    private void FixedUpdate()
     {
         // Move the spawnable forwards at constant rate
         Vector2 forwardVector = new Vector2(spawnableTransform.right.x, -spawnableTransform.right.y);
         spawnableRigidbody.MovePosition(spawnableRigidbody.position + speed * Time.fixedDeltaTime * forwardVector);
+    }
+
+    private void DisableMovement()
+    {
+        enabled = false;
     }
 }

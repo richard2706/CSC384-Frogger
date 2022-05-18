@@ -18,12 +18,12 @@ public class LivesUI : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerManager.OnPlayerLoseLife += DisplayLives;
+        PlayerLives.OnPlayerLoseLife += DisplayLives;
     }
 
     private void OnDisable()
     {
-        PlayerManager.OnPlayerLoseLife -= DisplayLives;
+        PlayerLives.OnPlayerLoseLife -= DisplayLives;
     }
 
     private void Start()

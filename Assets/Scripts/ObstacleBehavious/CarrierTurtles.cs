@@ -25,6 +25,16 @@ public class CarrierTurtles : Carrier
         SetCanCarry(true);
     }
 
+    private void OnEnable()
+    {
+        PlayerLives.OnGameOver += StopAnimation;
+    }
+
+    private void OnDisable()
+    {
+        PlayerLives.OnGameOver -= StopAnimation;
+    }
+
     private void Start()
     {
         StartCoroutine(ToggleTurtles());
@@ -55,5 +65,11 @@ public class CarrierTurtles : Carrier
     {
         this.canCarry = canCarry;
         turtleCollider.enabled = canCarry;
+    }
+
+    private void StopAnimation()
+    {
+        Debug.Log("stop turtle animation");
+        StopCoroutine(ToggleTurtles());
     }
 }

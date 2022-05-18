@@ -16,6 +16,21 @@ public class GameStateManager : MonoBehaviour
         spawners = FindObjectsOfType<Spawner>(true);
     }
 
+    private void OnEnable()
+    {
+        PlayerLives.OnGameOver += HandleLoseGame;
+    }
+
+    private void OnDisable()
+    {
+        PlayerLives.OnGameOver -= HandleLoseGame;
+    }
+
+    private void HandleLoseGame()
+    {
+        loseLevelPanel.SetActive(true);
+    }
+
     private void Start()
     {
         startLevelPanel.SetActive(true);

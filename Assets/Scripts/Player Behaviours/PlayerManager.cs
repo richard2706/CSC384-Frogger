@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMovement)), RequireComponent(typeof(PlayerSpriteManager)), RequireComponent(typeof(PlayerLives))]
 public class PlayerManager : MonoBehaviour
 {
-    public static event Action<PlayerLives> OnPlayerLoseLife;
-
     [SerializeField] private float loseLifeRestartDelay;
 
     private PlayerMovement playerMovement;
@@ -34,7 +32,6 @@ public class PlayerManager : MonoBehaviour
     {
         StartCoroutine(ExecutePlayerLoseLife());
         playerLives.LoseLife();
-        OnPlayerLoseLife?.Invoke(playerLives);
     }
 
     private IEnumerator ExecutePlayerLoseLife()

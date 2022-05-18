@@ -18,6 +18,16 @@ public class Spawner : MonoBehaviour
         if (spawnDirectionLeft) spawnPoint.Rotate(0f, 0f, 180f);
     }
 
+    private void OnEnable()
+    {
+        PlayerLives.OnGameOver += StopSpawning;
+    }
+
+    private void OnDisable()
+    {
+        PlayerLives.OnGameOver -= StopSpawning;
+    }
+
     private void Update()
     {
         if (timeToNextSpawn <= 0)
@@ -40,5 +50,10 @@ public class Spawner : MonoBehaviour
         // Destroy spawnable when off screen
         float timeUntilDestroy = Math.Abs(spawnPoint.position.x * 2 / spawnableSpeed);
         Destroy(spawnableMovement.gameObject, timeUntilDestroy);
+    }
+
+    private void StopSpawning()
+    {
+        enabled = false;
     }
 }

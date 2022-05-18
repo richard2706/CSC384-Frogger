@@ -32,6 +32,21 @@ public class PlayerMovement : MonoBehaviour
         initialPosition = transform.position;
     }
 
+    private void OnEnable()
+    {
+        PlayerLives.OnGameOver += DisableMovement;
+    }
+
+    private void OnDisable()
+    {
+        PlayerLives.OnGameOver -= DisableMovement;
+    }
+
+    private void DisableMovement()
+    {
+        enabled = false;
+    }
+
     private void Start()
     {
         // Calculate bounds so player cannot move outside the game area.
