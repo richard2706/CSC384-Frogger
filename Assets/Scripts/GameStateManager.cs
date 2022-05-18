@@ -10,11 +10,13 @@ public class GameStateManager : MonoBehaviour
 
     private PlayerManager[] players;
     private Spawner[] spawners;
+    private FlysInsideHome[] frogHomeFlys;
 
     private void Awake()
     {
         players = FindObjectsOfType<PlayerManager>(true);
         spawners = FindObjectsOfType<Spawner>(true);
+        frogHomeFlys = FindObjectsOfType<FlysInsideHome>(true);
     }
 
     private void OnEnable()
@@ -49,6 +51,7 @@ public class GameStateManager : MonoBehaviour
 
         DisableAll(players);
         DisableAll(spawners);
+        DisableAllBehaviours(frogHomeFlys);
 
         StartCoroutine(WaitForStart());
     }
@@ -72,6 +75,7 @@ public class GameStateManager : MonoBehaviour
         startLevelPanel.SetActive(false);
         EnableAll(players);
         EnableAll(spawners);
+        EnableAllBehaviours(frogHomeFlys);
     }
 
     private IEnumerator WaitForRestart()
@@ -106,6 +110,22 @@ public class GameStateManager : MonoBehaviour
         foreach (MonoBehaviour behaviour in objectBehaviours)
         {
             behaviour.gameObject.SetActive(false);
+        }
+    }
+
+    private void EnableAllBehaviours(MonoBehaviour[] behaviours)
+    {
+        foreach (MonoBehaviour behaviour in behaviours)
+        {
+            behaviour.enabled = true;
+        }
+    }
+
+    private void DisableAllBehaviours(MonoBehaviour[] behaviours)
+    {
+        foreach (MonoBehaviour behaviour in behaviours)
+        {
+            behaviour.enabled = false;
         }
     }
 }

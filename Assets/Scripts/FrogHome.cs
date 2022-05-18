@@ -19,14 +19,9 @@ public class FrogHome : MonoBehaviour
     public Vector2 Position => homeTransform.position;
     public Vector2 ColliderSize => homeCollider.bounds.size;
 
-    [SerializeField] private float minFlyInterval;
-    [SerializeField] private float maxFlyInterval;
-    [SerializeField] private float flyStayDuration;
-
     private Transform homeTransform;
     private Collider2D homeCollider;
     private HomeInside homeInside;
-    private bool containsFly;
 
     private void Awake()
     {
@@ -34,7 +29,6 @@ public class FrogHome : MonoBehaviour
         homeTransform = transform;
         homeCollider = GetComponent<Collider2D>();
         homeInside = GetComponentInChildren<HomeInside>();
-        containsFly = false;
     }
 
     private void OnEnable()
@@ -45,11 +39,6 @@ public class FrogHome : MonoBehaviour
     private void OnDisable()
     {
         allHomes.Remove(this);
-    }
-
-    private void Start()
-    {
-        StartCoroutine(ToggleFlyLoop());
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -69,24 +58,6 @@ public class FrogHome : MonoBehaviour
         if (AllHomesFilled)
         {
             OnLevelWon?.Invoke();
-        }
-    }
-
-    private IEnumerator ToggleFlyLoop()
-    {
-        float timeToFirstFly = UnityEngine.Random.Range(0, maxFlyInterval);
-        yield return new WaitForSeconds(timeToFirstFly);
-
-        while (true)
-        {
-            containsFly = true;
-            homeInside.ShowFly();
-            yield return new WaitForSeconds(flyStayDuration);
-
-            homeInside.HideFly();
-            containsFly = false;
-            float betweenFlyInterval = UnityEngine.Random.Range(minFlyInterval, maxFlyInterval);
-            yield return new WaitForSeconds(betweenFlyInterval);
         }
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6013686508366885688}
   - component: {fileID: 8080120847434782229}
   - component: {fileID: 1907036110995775832}
+  - component: {fileID: 7857207946933504954}
   m_Layer: 0
   m_Name: FrogHome
   m_TagString: Untagged
@@ -123,9 +124,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e011b243fd59aa542897b7bcb5bece4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minFlyInterval: 7
-  maxFlyInterval: 13
-  flyStayDuration: 3
+--- !u!114 &7857207946933504954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6013686508366885693}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b661b7f6d36cee41ba451e4e4312e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minFlyInterval: 5
+  maxFlyInterval: 10
+  flyStayDuration: 5
 --- !u!1 &7374570446303318824
 GameObject:
   m_ObjectHideFlags: 0
