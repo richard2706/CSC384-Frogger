@@ -18,17 +18,24 @@ public class GameStateManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerLives.OnGameOver += HandleLoseGame;
+        PlayerLives.OnLevelLost += HandleLoseLevel;
+        FrogHome.OnLevelWon += HandleWinLevel;
     }
 
     private void OnDisable()
     {
-        PlayerLives.OnGameOver -= HandleLoseGame;
+        PlayerLives.OnLevelLost -= HandleLoseLevel;
+        FrogHome.OnLevelWon -= HandleWinLevel;
     }
 
-    private void HandleLoseGame()
+    private void HandleLoseLevel()
     {
         loseLevelPanel.SetActive(true);
+    }
+
+    private void HandleWinLevel()
+    {
+        winLevelPanel.SetActive(true);
     }
 
     private void Start()

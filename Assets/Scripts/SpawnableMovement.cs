@@ -20,12 +20,12 @@ public class SpawnableMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerLives.OnGameOver += DisableMovement;
+        PlayerLives.OnLevelLost += DisableMovement;
     }
 
     private void OnDisable()
     {
-        PlayerLives.OnGameOver -= DisableMovement;
+        PlayerLives.OnLevelLost -= DisableMovement;
     }
 
     private void FixedUpdate()

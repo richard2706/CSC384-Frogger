@@ -6,6 +6,7 @@ using UnityEngine;
 public class FrogHome : MonoBehaviour
 {
     public static event Action OnFrogReachedHome;
+    public static event Action OnLevelWon;
 
     private static List<FrogHome> allHomes = new List<FrogHome>();
 
@@ -53,7 +54,7 @@ public class FrogHome : MonoBehaviour
         IsTaken = true;
         if (AllHomesFilled)
         {
-            Debug.Log("All homes filled");
+            OnLevelWon?.Invoke();
         }
     }
 }

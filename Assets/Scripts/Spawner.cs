@@ -21,12 +21,12 @@ public class Spawner : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerLives.OnGameOver += StopSpawning;
+        PlayerLives.OnLevelLost += StopSpawning;
     }
 
     private void OnDisable()
     {
-        PlayerLives.OnGameOver -= StopSpawning;
+        PlayerLives.OnLevelLost -= StopSpawning;
     }
 
     private void Update()

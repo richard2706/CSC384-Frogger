@@ -27,12 +27,12 @@ public class CarrierTurtles : Carrier
 
     private void OnEnable()
     {
-        PlayerLives.OnGameOver += StopAnimation;
+        PlayerLives.OnLevelLost += StopAnimation;
     }
 
     private void OnDisable()
     {
-        PlayerLives.OnGameOver -= StopAnimation;
+        PlayerLives.OnLevelLost -= StopAnimation;
     }
 
     private void Start()

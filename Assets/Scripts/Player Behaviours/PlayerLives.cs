@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerLives : MonoBehaviour
 {
-    public static event Action OnGameOver;
+    public static event Action OnLevelLost;
     public static event Action<PlayerLives> OnPlayerLoseLife;
 
     private static List<PlayerLives> allPlayersLives = new List<PlayerLives>();
@@ -47,6 +47,6 @@ public class PlayerLives : MonoBehaviour
         {
             if (player.Lives != 0) playerWithLivesExists = true;
         }
-        if (!playerWithLivesExists) OnGameOver?.Invoke();
+        if (!playerWithLivesExists) OnLevelLost?.Invoke();
     }
 }

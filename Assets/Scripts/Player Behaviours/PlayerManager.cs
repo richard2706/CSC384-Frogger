@@ -20,13 +20,13 @@ public class PlayerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerLives.OnGameOver += StopOngoingPlayerActions;
+        PlayerLives.OnLevelLost += StopOngoingPlayerActions;
         FrogHome.OnFrogReachedHome += playerMovement.ResetPosition;
     }
 
     private void OnDisable()
     {
-        PlayerLives.OnGameOver -= StopOngoingPlayerActions;
+        PlayerLives.OnLevelLost -= StopOngoingPlayerActions;
         FrogHome.OnFrogReachedHome -= playerMovement.ResetPosition;
     }
 
