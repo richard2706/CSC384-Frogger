@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuButtonHandler : MonoBehaviour
 {
+    [SerializeField] GameObject creditsPanel;
+
     public void ContinueGame()
     {
         Debug.Log("Continue game");
@@ -28,7 +31,12 @@ public class MenuButtonHandler : MonoBehaviour
     }
 
     public void ShowCreditsPanel()
+    {   
+        creditsPanel.SetActive(true);
+    }
+
+    public void HideCreditsPanel()
     {
-        Debug.Log("Credits");
+        creditsPanel.SetActive(false);
     }
 }
