@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,11 +50,18 @@ public class Spawner : MonoBehaviour
 
         // Destroy spawnable when off screen
         float timeUntilDestroy = Math.Abs(spawnPoint.position.x * 2 / spawnableSpeed);
-        Destroy(spawnableMovement.gameObject, timeUntilDestroy);
+        StartCoroutine(DestroySpawnable(spawnableMovement, timeUntilDestroy));
+    }
+
+    private IEnumerator DestroySpawnable(SpawnableMovement spawnable, float timeUntilDestroy)
+    {
+        yield return new WaitForSeconds(timeUntilDestroy);
+        Destroy(spawnable.gameObject);
     }
 
     private void StopSpawning()
     {
+        StopAllCoroutines();
         enabled = false;
     }
 }
