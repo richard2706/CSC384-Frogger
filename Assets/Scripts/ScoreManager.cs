@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
     private const int forwardStepPoints = 10;
     private const int unusedHalfSecondPoints = 10;
     private const int eatFlyPoints = 200;
-    private const int allFrogsHomePoints = 1000;
+    private const int allHomesFilledPoints = 1000;
 
     public static event Action<ScoreManager> OnScoreChange;
 
@@ -32,16 +32,24 @@ public class ScoreManager : MonoBehaviour
     private void OnEnable()
     {
         FrogHome.OnFrogReachedHome += UpdateScoreOnFrogReachedHome;
+        FrogHome.OnLevelWon += IncreaseScoreOnAllHomesFilled;
     }
 
     private void OnDisable()
     {
         FrogHome.OnFrogReachedHome -= UpdateScoreOnFrogReachedHome;
+        FrogHome.OnLevelWon -= IncreaseScoreOnAllHomesFilled;
     }
 
     private void UpdateScoreOnFrogReachedHome()
     {
         IncreaseScore(homeFilledPoints);
+        OnScoreChange?.Invoke(this);
+    }
+
+    private void IncreaseScoreOnAllHomesFilled()
+    {
+        IncreaseScore(allHomesFilledPoints);
         OnScoreChange?.Invoke(this);
     }
 }
