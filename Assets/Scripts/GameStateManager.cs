@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -31,11 +32,13 @@ public class GameStateManager : MonoBehaviour
     private void HandleLoseLevel()
     {
         loseLevelPanel.SetActive(true);
+        StartCoroutine(WaitForRestart());
     }
 
     private void HandleWinLevel()
     {
         winLevelPanel.SetActive(true);
+        // load next level
     }
 
     private void Start()
@@ -52,12 +55,12 @@ public class GameStateManager : MonoBehaviour
 
     private IEnumerator WaitForStart()
     {
-        bool playerIndicatedStart = false;
-        while (!playerIndicatedStart)
+        bool keyPressed = false;
+        while (!keyPressed)
         {
             if (Input.anyKey)
             {
-                playerIndicatedStart = true;
+                keyPressed = true;
                 StartLevel();
             }
             yield return null;
@@ -69,6 +72,25 @@ public class GameStateManager : MonoBehaviour
         startLevelPanel.SetActive(false);
         EnableAll(players);
         EnableAll(spawners);
+    }
+
+    private IEnumerator WaitForRestart()
+    {
+        bool keyPressed = false;
+        while (!keyPressed)
+        {
+            if (Input.anyKey)
+            {
+                keyPressed = true;
+                RestartLevel();
+            }
+            yield return null;
+        }
+    }
+
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void EnableAll(MonoBehaviour[] objectBehaviours)
