@@ -16,6 +16,13 @@ public class PlayerPowerUpInteraction : MonoBehaviour
         this.powerUp = powerUp;
     }
 
+    public void UsePowerUp()
+    {
+        Debug.Log("Player use power up");
+        powerUp.Use();
+        LosePowerUp();
+    }
+
     private void Awake()
     {
         usePowerUp = false;
@@ -45,13 +52,6 @@ public class PlayerPowerUpInteraction : MonoBehaviour
             if (powerUp != null) UsePowerUp();
             usePowerUp = false;
         }
-    }
-
-    private void UsePowerUp()
-    {
-        Debug.Log("Player use power up");
-        powerUp.Use();
-        LosePowerUp();
     }
 
     private void LosePowerUp()

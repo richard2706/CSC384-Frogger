@@ -36,8 +36,7 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerLoseLife()
     {
-        StartCoroutine(ExecutePlayerLoseLife());
-        playerLives.LoseLife();
+        if (playerLives.LoseLife()) StartCoroutine(ExecutePlayerLoseLife());
     }
 
     private IEnumerator ExecutePlayerLoseLife()
