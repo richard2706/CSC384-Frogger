@@ -12,9 +12,18 @@ public class PlayerLives : MonoBehaviour
     [SerializeField] private int maxLives;
     public int Lives { get; private set; }
 
+    private bool extraLife;
+    private PlayerPowerUpInteraction powerUpInteraction;
+
+    public void ApplyExtraLife()
+    {
+        extraLife = true;
+    }
+
     private void Awake()
     {
         Lives = maxLives;
+        powerUpInteraction = GetComponent<PlayerPowerUpInteraction>();
     }
 
     private void OnEnable()
@@ -27,17 +36,27 @@ public class PlayerLives : MonoBehaviour
         allPlayersLives.Remove(this);
     }
 
-    public void LoseLife()
+    /// <summary>
+    /// Causes the player to lose a life if they do not have an extra life.
+    /// </summary>
+    /// <returns>True if the player lost a life, false if they had an extra life to protect them.</returns>
+    public bool LoseLife()
     {
-        Lives--;
-        if (Lives < 0) Lives = 0;
-        else OnPlayerLoseLife?.Invoke(this);
-
-        if (Lives == 0)
+        if (extraLife)
         {
-            Debug.Log("ALl lives lost. Game over.");
-            CheckGameOver();
+            extraLife = false;
+            if (powerUpInteraction) powerUpInteraction.UsePowerUp();
+            return false;
         }
+        else
+        {
+            Lives--;
+            if (Lives < 0) Lives = 0;
+            else OnPlayerLoseLife?.Invoke(this);
+
+            if (Lives == 0) CheckGameOver();
+        }
+        return true;
     }
 
     private void CheckGameOver()
