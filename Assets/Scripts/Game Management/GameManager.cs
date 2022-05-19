@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         {
             profileChanged = true;
         }
+
         if (profileChanged) OnProfileChanged?.Invoke(SelectedProfile);
         return profileChanged;
     }

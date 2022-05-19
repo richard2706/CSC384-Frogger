@@ -18,6 +18,7 @@ public class ProfileButton : MonoBehaviour
     {
         ColorBlock colors = button.colors;
         colors.normalColor = selectedColor;
+        colors.selectedColor = selectedColor;
         button.colors = colors;
         buttonText.color = Color.white;
     }
@@ -26,6 +27,7 @@ public class ProfileButton : MonoBehaviour
     {
         ColorBlock colors = button.colors;
         colors.normalColor = deselectedColor;
+        colors.selectedColor = deselectedColor;
         button.colors = colors;
         buttonText.color = Color.black;
     }
@@ -37,7 +39,7 @@ public class ProfileButton : MonoBehaviour
             foreach (ProfileButton profileButton in allProfileButtons)
             {
                 if (profileButton == this) Select();
-                else Deselect();
+                else profileButton.Deselect();
             }
         }
     }
