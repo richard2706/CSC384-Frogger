@@ -16,7 +16,7 @@ public abstract class PowerUp : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        InteractWithPowerUp player = collider.GetComponent<InteractWithPowerUp>();
+        PlayerPowerUpInteraction player = collider.GetComponent<PlayerPowerUpInteraction>();
         if (player)
         {
             player.PickUpPowerUp(this);

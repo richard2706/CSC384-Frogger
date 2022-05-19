@@ -1,20 +1,23 @@
 using UnityEngine;
 
-public class InteractWithPowerUp : MonoBehaviour
+public class PlayerPowerUpInteraction : MonoBehaviour
 {
     [SerializeField] private KeyCode usePowerUpKey;
 
     private PowerUp powerUp;
     private bool usePowerUp;
+    private PlayerHeldPowerUp powerUpHolder;
 
     public void PickUpPowerUp(PowerUp powerUp)
     {
+        powerUpHolder.DisplayPowerUp(powerUp);
         this.powerUp = powerUp;
     }
 
     private void Awake()
     {
         usePowerUp = false;
+        powerUpHolder = GetComponentInChildren<PlayerHeldPowerUp>();
     }
 
     private void Update()
@@ -26,12 +29,15 @@ public class InteractWithPowerUp : MonoBehaviour
     {
         if (usePowerUp)
         {
+            if (powerUp != null) UsePowerUp();
             usePowerUp = false;
-            if (powerUp != null)
-            {
-                powerUp.Use();
-                powerUp = null;
-            }
         }
+    }
+
+    private void UsePowerUp()
+    {
+        powerUp.Use();
+        powerUpHolder.HidePowerUp();
+        powerUp = null;
     }
 }
