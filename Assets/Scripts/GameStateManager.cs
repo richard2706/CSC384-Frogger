@@ -14,12 +14,14 @@ public class GameStateManager : MonoBehaviour
     private PlayerManager[] players;
     private Spawner[] spawners;
     private FrogHomeFlys[] frogHomeFlys;
+    private LivesUI[] livesIndicators;
 
     private void Awake()
     {
         players = FindObjectsOfType<PlayerManager>(true);
         spawners = FindObjectsOfType<Spawner>(true);
         frogHomeFlys = FindObjectsOfType<FrogHomeFlys>(true);
+        livesIndicators = FindObjectsOfType<LivesUI>(true);
     }
 
     private void OnEnable()
@@ -37,6 +39,9 @@ public class GameStateManager : MonoBehaviour
     private void HandleLoseLevel()
     {
         loseLevelPanel.SetActive(true);
+        Timer timer = FindObjectOfType<Timer>();
+        timer.StopAllCoroutines();
+        timer.gameObject.SetActive(false);
         StartCoroutine(WaitForRestart());
     }
 
@@ -51,6 +56,7 @@ public class GameStateManager : MonoBehaviour
         startLevelPanel.SetActive(true);
         winLevelPanel.SetActive(false);
         loseLevelPanel.SetActive(false);
+        if (GameManager.Multiplayer) EnableAll(livesIndicators);
 
         DisableAll(players);
         DisableAll(spawners);

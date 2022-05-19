@@ -20,39 +20,60 @@ public class Timer : MonoBehaviour
 
     private void OnEnable()
     {
-        GameStateManager.OnLevelStart += PauseTimer;
-        FrogHome.OnFrogReachedHome += PauseTimer;
-        PlayerLives.OnPlayerLoseLife += PauseTimer;
-        PlayerManager.OnPlayerReady += RestartTimer;
         GameStateManager.OnLevelStart += RestartTimer;
+
+        if (GameManager.Multiplayer)
+        {
+            FrogHome.OnFrogReachedHome += RestartTimer;
+        }
+        else
+        {
+            PlayerManager.OnPlayerReady += RestartTimer;
+
+            FrogHome.OnFrogReachedHome += StopTimer;
+            PlayerLives.OnPlayerLoseLife += StopTimer;
+        }
+
+        //PlayerLives.OnLevelLost += ExecuteStopTimer;
     }
 
     private void OnDisable()
     {
-        GameStateManager.OnLevelStart -= PauseTimer;
-        FrogHome.OnFrogReachedHome -= PauseTimer;
-        PlayerLives.OnPlayerLoseLife -= PauseTimer;
-        PlayerManager.OnPlayerReady -= RestartTimer;
         GameStateManager.OnLevelStart -= RestartTimer;
+
+        if (GameManager.Multiplayer)
+        {
+            FrogHome.OnFrogReachedHome -= RestartTimer;
+        }
+        else
+        {
+            PlayerManager.OnPlayerReady -= RestartTimer;
+
+            FrogHome.OnFrogReachedHome -= StopTimer;
+            PlayerLives.OnPlayerLoseLife -= StopTimer;
+        }
+
+        //PlayerLives.OnLevelLost -= ExecuteStopTimer;
     }
 
-    private void PauseTimer(PlayerLives playerLives)
+    private void StopTimer(PlayerLives playerLives)
     {
-        ExecutePauseTimer();
+        ExecuteStopTimer();
     }
 
-    private void PauseTimer()
+    private void StopTimer()
     {
-        ExecutePauseTimer();
+        ExecuteStopTimer();
     }
 
-    private void ExecutePauseTimer()
+    private void ExecuteStopTimer()
     {
         StopAllCoroutines();
     }
 
     private void RestartTimer()
     {
+        ExecuteStopTimer();
         StartCoroutine(StartTimer());
     }
 
