@@ -13,7 +13,7 @@ public class PlayerLives : MonoBehaviour
     public int Lives { get; private set; }
 
     private bool extraLife;
-    //private PlayerPowerUpInteraction powerUpInteraction;
+    private PlayerPowerUpInteraction powerUpInteraction;
 
     public void ApplyExtraLife()
     {
@@ -23,7 +23,7 @@ public class PlayerLives : MonoBehaviour
     private void Awake()
     {
         Lives = maxLives;
-        //powerUpInteraction = GetComponent<PlayerPowerUpInteraction>();
+        powerUpInteraction = GetComponent<PlayerPowerUpInteraction>();
     }
 
     private void OnEnable()
@@ -47,8 +47,8 @@ public class PlayerLives : MonoBehaviour
         {
             Debug.Log("use extra life");
             extraLife = false;
+            if (powerUpInteraction) powerUpInteraction.UsePowerUp();
             return false;
-            //if (powerUpInteraction) powerUpInteraction.UsePowerUp();
         }
         else
         {
