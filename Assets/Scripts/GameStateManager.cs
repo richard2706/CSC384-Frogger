@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
-    [SerializeField] GameObject startLevelPanel;
-    [SerializeField] GameObject winLevelPanel;
-    [SerializeField] GameObject loseLevelPanel;
+    public static event Action OnLevelStart;
+
+    [SerializeField] private GameObject startLevelPanel;
+    [SerializeField] private GameObject winLevelPanel;
+    [SerializeField] private GameObject loseLevelPanel;
 
     private PlayerManager[] players;
     private Spawner[] spawners;
@@ -65,6 +68,7 @@ public class GameStateManager : MonoBehaviour
             {
                 keyPressed = true;
                 StartLevel();
+                OnLevelStart?.Invoke();
             }
             yield return null;
         }
