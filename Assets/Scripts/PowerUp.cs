@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class PowerUp : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
+    protected PlayerPowerUpInteraction holdingPlayer;
 
     public abstract void Use();
 
@@ -21,6 +22,7 @@ public abstract class PowerUp : MonoBehaviour
         {
             player.PickUpPowerUp(this);
             gameObject.SetActive(false);
+            holdingPlayer = player;
         }
     }
 }

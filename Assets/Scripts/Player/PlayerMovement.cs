@@ -29,6 +29,11 @@ public class PlayerMovement : MonoBehaviour
         currentForwardSteps = 0;
     }
 
+    public void SuperJump()
+    {
+        nextMovement = new Vector2(0, 2);
+    }
+
     private void Awake()
     {
         playerBody = GetComponent<Rigidbody2D>();
@@ -52,11 +57,6 @@ public class PlayerMovement : MonoBehaviour
         FrogHome.OnFrogReachedHome -= ResetMaxForwardSteps;
         PlayerLives.OnLevelLost -= DisableMovement;
         FrogHome.OnLevelWon -= DisableMovement;
-    }
-
-    private void DisableMovement()
-    {
-        enabled = false;
     }
 
     private void Start()
@@ -133,6 +133,11 @@ public class PlayerMovement : MonoBehaviour
             maxForwardSteps = currentForwardSteps;
             OnIncreaseMaxForwardStep?.Invoke(forwardSteps);
         }
+    }
+
+    private void DisableMovement()
+    {
+        enabled = false;
     }
 
     private void ResetMaxForwardSteps()

@@ -1,9 +1,8 @@
-using UnityEngine;
-
 public class SuperJumpPowerUp : PowerUp
 {
     public override void Use()
     {
-        Debug.Log("Use super jump");
+        PlayerMovement playerMovement = holdingPlayer.GetComponent<PlayerMovement>();
+        if (playerMovement) playerMovement.SuperJump();
     }
 }
