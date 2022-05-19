@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerLives))]
 public class PlayerPowerUpInteraction : MonoBehaviour
 {
     [SerializeField] private KeyCode usePowerUpKey;
@@ -7,6 +8,7 @@ public class PlayerPowerUpInteraction : MonoBehaviour
     private PowerUp powerUp;
     private bool usePowerUp;
     private PlayerHeldPowerUp powerUpHolder;
+    private PlayerLives playerLives;
 
     public void PickUpPowerUp(PowerUp powerUp)
     {
@@ -18,6 +20,12 @@ public class PlayerPowerUpInteraction : MonoBehaviour
     {
         usePowerUp = false;
         powerUpHolder = GetComponentInChildren<PlayerHeldPowerUp>();
+        playerLives = GetComponent<PlayerLives>();
+    }
+
+    private void OnEnable()
+    {
+        PlayerLives.OnPlayerLoseLife += LosePowerUp;
     }
 
     private void Update()
@@ -37,7 +45,17 @@ public class PlayerPowerUpInteraction : MonoBehaviour
     private void UsePowerUp()
     {
         powerUp.Use();
+        LosePowerUp();
+    }
+
+    private void LosePowerUp()
+    {
         powerUpHolder.HidePowerUp();
         powerUp = null;
+    }
+
+    private void LosePowerUp(PlayerLives playerLives)
+    {
+        if (this.playerLives == playerLives) LosePowerUp();
     }
 }
