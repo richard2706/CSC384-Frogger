@@ -28,7 +28,8 @@ public class MenuButtonHandler : MonoBehaviour
 
     public void StartTwoPlayerGame()
     {
-        Debug.Log("Two player game");
+        GameManager.Multiplayer = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void ShowAchievementsPanel()

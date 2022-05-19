@@ -77,7 +77,10 @@ public class GameStateManager : MonoBehaviour
     private void StartLevel()
     {
         startLevelPanel.SetActive(false);
-        EnableAll(players);
+
+        if (GameManager.Multiplayer) EnableAll(players);
+        else players[0].gameObject.SetActive(true);
+
         EnableAll(spawners);
         EnableAllBehaviours(frogHomeFlys);
     }
