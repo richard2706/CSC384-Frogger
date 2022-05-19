@@ -25,9 +25,10 @@ public class Carrier : MonoBehaviour
             carryableTarget.transform.parent = null;
             carryableTarget.BeingCarried = false;
 
-            if (Terrain && collider.GetComponentInParent<PlayerManager>())
+            PlayerManager player = collider.GetComponentInParent<PlayerManager>();
+            if (Terrain && player)
             {
-                Terrain.CheckPlayerTerrainCollision();
+                Terrain.CheckPlayerTerrainCollision(player);
             }
         }
     }

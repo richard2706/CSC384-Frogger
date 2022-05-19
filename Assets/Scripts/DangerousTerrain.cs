@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -7,22 +8,28 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class DangerousTerrain : Dangerous
 {
-    private PlayerManager playerOnTerrain;
+    private List<PlayerManager> playersOnTerrain;
 
     /// <summary>
     /// Determines if player should be damaged by checking if the player is still being carried.
     /// </summary>
-    public void CheckPlayerTerrainCollision()
+    public void CheckPlayerTerrainCollision(PlayerManager player)
     {
-        StartCoroutine(ExecutePlayerTerrainCollisionCheck());
+        StartCoroutine(ExecuteCheckPlayerTerrainCollision(player));
     }
 
-    private IEnumerator ExecutePlayerTerrainCollisionCheck()
+    private void Awake()
     {
+        playersOnTerrain = new List<PlayerManager>();
+    }
+
+    private IEnumerator ExecuteCheckPlayerTerrainCollision(PlayerManager player)
+    {
+        bool playerOnTerrain = playersOnTerrain.Contains(player);
         yield return new WaitForFixedUpdate();
-        if (playerOnTerrain && !playerOnTerrain.GetComponent<Carryable>().BeingCarried)
+        if (playerOnTerrain && !player.GetComponent<Carryable>().BeingCarried)
         {
-            playerOnTerrain.PlayerLoseLife();
+            player.PlayerLoseLife();
         }
     }
 
@@ -31,8 +38,8 @@ public class DangerousTerrain : Dangerous
         PlayerManager player = collider.GetComponentInParent<PlayerManager>();
         if (player)
         {
-            playerOnTerrain = player;
-            CheckPlayerTerrainCollision();
+            playersOnTerrain.Add(player);
+            CheckPlayerTerrainCollision(player);
             return;
         }
 
@@ -45,9 +52,10 @@ public class DangerousTerrain : Dangerous
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.GetComponentInParent<PlayerManager>() == playerOnTerrain)
+        PlayerManager player = collider.GetComponentInParent<PlayerManager>();
+        if (playersOnTerrain.Contains(player))
         {
-            playerOnTerrain = null;
+            playersOnTerrain.Remove(player);
         }
     }
 }
