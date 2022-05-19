@@ -7,6 +7,10 @@ public class PlayerMovement : MonoBehaviour
     public static event Action<int> OnIncreaseMaxForwardStep;
 
     [SerializeField] private SpriteRenderer boundingGameArea; // Player can move within bounds of this sprite.
+    [SerializeField] private KeyCode upKey;
+    [SerializeField] private KeyCode leftKey;
+    [SerializeField] private KeyCode downKey;
+    [SerializeField] private KeyCode rightKey;
 
     // Bounding coordinates for player movement
     private float xMinBound;
@@ -92,10 +96,10 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // Check for next movement direction
-        if (Input.GetKeyDown(KeyCode.D)) nextMovement = Vector2.right;
-        else if (Input.GetKeyDown(KeyCode.A)) nextMovement = Vector2.left;
-        else if (Input.GetKeyDown(KeyCode.W)) nextMovement = Vector2.up;
-        else if (Input.GetKeyDown(KeyCode.S)) nextMovement = Vector2.down;
+        if (Input.GetKeyDown(rightKey)) nextMovement = Vector2.right;
+        else if (Input.GetKeyDown(leftKey)) nextMovement = Vector2.left;
+        else if (Input.GetKeyDown(upKey)) nextMovement = Vector2.up;
+        else if (Input.GetKeyDown(downKey)) nextMovement = Vector2.down;
     }
 
     /// <summary>

@@ -3128,6 +3128,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7972565624204002420, guid: 93b95f555264ec74c8ea2b0c2b1641a4, type: 3}
+      propertyPath: upKey
+      value: 119
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972565624204002420, guid: 93b95f555264ec74c8ea2b0c2b1641a4, type: 3}
+      propertyPath: downKey
+      value: 115
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972565624204002420, guid: 93b95f555264ec74c8ea2b0c2b1641a4, type: 3}
+      propertyPath: leftKey
+      value: 97
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972565624204002420, guid: 93b95f555264ec74c8ea2b0c2b1641a4, type: 3}
+      propertyPath: rightKey
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972565624204002420, guid: 93b95f555264ec74c8ea2b0c2b1641a4, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
