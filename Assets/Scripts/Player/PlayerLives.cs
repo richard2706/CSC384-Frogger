@@ -42,10 +42,8 @@ public class PlayerLives : MonoBehaviour
     /// <returns>True if the player lost a life, false if they had an extra life to protect them.</returns>
     public bool LoseLife()
     {
-        Debug.Log(extraLife);
         if (extraLife)
         {
-            Debug.Log("use extra life");
             extraLife = false;
             if (powerUpInteraction) powerUpInteraction.UsePowerUp();
             return false;
@@ -56,10 +54,7 @@ public class PlayerLives : MonoBehaviour
             if (Lives < 0) Lives = 0;
             else OnPlayerLoseLife?.Invoke(this);
 
-            if (Lives == 0)
-            {
-                CheckGameOver();
-            }
+            if (Lives == 0) CheckGameOver();
         }
         return true;
     }

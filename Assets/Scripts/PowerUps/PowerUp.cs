@@ -8,15 +8,9 @@ public abstract class PowerUp : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     protected PlayerPowerUpInteraction holdingPlayer;
 
-    public virtual void OnPickUp()
-    {
-        Debug.Log("Power up picked up");
-    }
+    public virtual void OnPickUp() { }
 
-    public virtual void Use()
-    {
-        Debug.Log("Power up used");
-    }
+    public virtual void Use() { }
 
     public Sprite GetSprite() => spriteRenderer.sprite;
 
