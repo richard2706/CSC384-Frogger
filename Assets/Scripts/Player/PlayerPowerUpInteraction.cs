@@ -28,9 +28,14 @@ public class PlayerPowerUpInteraction : MonoBehaviour
         PlayerLives.OnPlayerLoseLife += LosePowerUp;
     }
 
+    private void OnDisable()
+    {
+        PlayerLives.OnPlayerLoseLife -= LosePowerUp;
+    }
+
     private void Update()
     {
-        if (powerUp != null && Input.GetKeyDown(usePowerUpKey)) usePowerUp = true;
+        if (powerUp != null && !powerUp.AutoUsed && Input.GetKeyDown(usePowerUpKey)) usePowerUp = true;
     }
 
     private void FixedUpdate()
@@ -44,12 +49,14 @@ public class PlayerPowerUpInteraction : MonoBehaviour
 
     private void UsePowerUp()
     {
+        Debug.Log("Player use power up");
         powerUp.Use();
         LosePowerUp();
     }
 
     private void LosePowerUp()
     {
+        Debug.Log("Player lose power up");
         powerUpHolder.HidePowerUp();
         powerUp = null;
     }
