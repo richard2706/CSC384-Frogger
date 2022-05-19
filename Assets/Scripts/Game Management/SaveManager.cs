@@ -19,8 +19,9 @@ public static class SaveManager
             {
                 return formatter.Deserialize(stream) as Profile;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.Log(e);
                 return null;
             }
         }
@@ -35,8 +36,9 @@ public static class SaveManager
             {
                 formatter.Serialize(stream, profile);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.Log(e);
                 return false;
             }
         }
@@ -49,8 +51,9 @@ public static class SaveManager
         {
             File.Delete(GetSavePath(profileID));
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            Debug.Log(e);
             return false;
         }
         return true;

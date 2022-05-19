@@ -8,10 +8,9 @@ public class DisplaySelectedProfile : MonoBehaviour
 
     private Text selectedProfileText;
 
-    public void UpdateSelectedProfile()
+    public void UpdateSelectedProfile(Profile selectedProfile)
     {
-        int selectedProfileID = GameManager.SelectedProfile.ProfileID;
-        selectedProfileText.text = string.Format(selectedProfileFormat, selectedProfileID);
+        selectedProfileText.text = string.Format(selectedProfileFormat, selectedProfile.ProfileID);
     }
 
     private void Awake()
@@ -19,8 +18,18 @@ public class DisplaySelectedProfile : MonoBehaviour
         selectedProfileText = GetComponent<Text>();
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnProfileChanged += UpdateSelectedProfile;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnProfileChanged -= UpdateSelectedProfile;
+    }
+
     private void Start()
     {
-        UpdateSelectedProfile();
+        UpdateSelectedProfile(GameManager.SelectedProfile);
     }
 }

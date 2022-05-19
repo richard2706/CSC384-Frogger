@@ -9,9 +9,9 @@ public class DisplayNextLevel : MonoBehaviour
 
     private Text levelText;
 
-    public void UpdateNextLevelText()
+    public void UpdateNextLevelText(Profile selectedProfile)
     {
-        int nextLevel = Math.Min(GameManager.SelectedProfile.LevelsCompleted + 1, GameManager.NumLevels);
+        int nextLevel = Math.Min(selectedProfile.LevelsCompleted + 1, GameManager.NumLevels);
         levelText.text = string.Format(nextLevelTextFormat, nextLevel);
     }
 
@@ -20,8 +20,18 @@ public class DisplayNextLevel : MonoBehaviour
         levelText = GetComponent<Text>();
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnProfileChanged += UpdateNextLevelText;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnProfileChanged -= UpdateNextLevelText;
+    }
+
     private void Start()
     {
-        UpdateNextLevelText();
+        UpdateNextLevelText(GameManager.SelectedProfile);
     }
 }

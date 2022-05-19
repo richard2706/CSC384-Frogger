@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
 public class ProfileButton : MonoBehaviour
 {
+    private static List<ProfileButton> allProfileButtons = new List<ProfileButton>();
+
     [SerializeField] private Color deselectedColor;
     [SerializeField] private Color selectedColor;
     [SerializeField] private int profileID;
@@ -13,7 +16,6 @@ public class ProfileButton : MonoBehaviour
 
     public void Select()
     {
-        Debug.Log("Select profile " + profileID);
         ColorBlock colors = button.colors;
         colors.normalColor = selectedColor;
         button.colors = colors;
@@ -22,7 +24,6 @@ public class ProfileButton : MonoBehaviour
 
     public void Deselect()
     {
-        Debug.Log("Deselect profile " + profileID);
         ColorBlock colors = button.colors;
         colors.normalColor = deselectedColor;
         button.colors = colors;
@@ -31,7 +32,14 @@ public class ProfileButton : MonoBehaviour
 
     public void Click()
     {
-        Debug.Log("Profile " + profileID);
+        if (GameManager.Instance.SelectProfile(profileID))
+        {
+            foreach (ProfileButton profileButton in allProfileButtons)
+            {
+                if (profileButton == this) Select();
+                else Deselect();
+            }
+        }
     }
 
     private void Awake()
@@ -39,6 +47,16 @@ public class ProfileButton : MonoBehaviour
         button = GetComponent<Button>();
         buttonText = GetComponentInChildren<Text>();
         Deselect();
+    }
+
+    private void OnEnable()
+    {
+        allProfileButtons.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        allProfileButtons.Remove(this);
     }
 
     private void Start()

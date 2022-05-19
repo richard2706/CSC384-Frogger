@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    public static event Action<Profile> OnProfileChanged;
     public static Profile SelectedProfile { get; private set; }
     public static bool Multiplayer { get; set; }
 
@@ -11,10 +13,35 @@ public class GameManager : MonoBehaviour
 
     private const int defaultProfileID = 1;
 
+    public bool SelectProfile(int profileID)
+    {
+        bool profileChanged = false;
+        SelectedProfile = SaveManager.LoadProfile(profileID);
+        if (SelectedProfile == null)
+        {
+            Profile profile = new Profile(profileID);
+            if (SaveManager.SaveProfile(profile))
+            {
+                SelectedProfile = profile;
+                profileChanged = true;
+            }
+            else
+            {
+                Debug.Log("Profile " + profileID + " could not be created");
+            }
+        }
+        else
+        {
+            profileChanged = true;
+        }
+        if (profileChanged) OnProfileChanged?.Invoke(SelectedProfile);
+        return profileChanged;
+    }
+
     private void Awake()
     {
         EnforcePersistentSingletonInstance();
-        SelectDefaultProfile();
+        SelectProfile(defaultProfileID);
         Multiplayer = false;
     }
 
@@ -28,20 +55,6 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-        }
-    }
-
-    private void SelectDefaultProfile()
-    {
-        SelectedProfile = SaveManager.LoadProfile(defaultProfileID);
-        if (SelectedProfile == null)
-        {
-            Profile defaultProfile = new Profile(defaultProfileID);
-            if (!SaveManager.SaveProfile(defaultProfile))
-            {
-                Debug.Log("Default profile could not be created");
-            }
-            SelectedProfile = defaultProfile;
         }
     }
 }
