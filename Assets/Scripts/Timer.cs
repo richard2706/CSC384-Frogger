@@ -1,16 +1,20 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
+    public static event Action<Timer> OnTimerUpdate;
+
+    public float TimeRemaining { get; private set; }
+
     [SerializeField] private int duration;
 
-    private float timeRemaining;
     private PlayerLives[] allPlayersLives;
 
     private void Awake()
     {
-        timeRemaining = duration;
+        TimeRemaining = duration;
         allPlayersLives = FindObjectsOfType<PlayerLives>();
     }
 
@@ -40,17 +44,19 @@ public class Timer : MonoBehaviour
 
     private void ExecuteRestartTimer()
     {
+        StopAllCoroutines();
         StartCoroutine(StartTimer());
     }
 
-    private IEnumerator StartTimer()
+    private IEnumerator StartTimer() // fix issue with this being run once for each event
     {
-        timeRemaining = duration;
+        TimeRemaining = duration;
 
-        while (timeRemaining > 0)
+        while (TimeRemaining > 0)
         {
             yield return new WaitForSecondsRealtime(0.5f);
-            timeRemaining -= 0.5f;
+            TimeRemaining -= 0.5f;
+            OnTimerUpdate?.Invoke(this);
         }
     }
 }

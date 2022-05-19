@@ -9,9 +9,13 @@ public class ScoreManager : MonoBehaviour
     private const int eatFlyPoints = 200;
     private const int allHomesFilledPoints = 1000;
 
+    private const float unusedTimeUnit = 0.5f; // Unused time points applied for each of these lengths
+
     public static event Action<ScoreManager> OnScoreChange;
 
     public int Score { get; private set; }
+
+    [SerializeField] private Timer timer;
 
     public int IncreaseScore(int points)
     {
@@ -47,7 +51,9 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateScoreOnFrogReachedHome()
     {
-        IncreaseScore(homeFilledPoints);
+        int unusedTimeUnits = (int)(Math.Floor(timer.TimeRemaining / unusedTimeUnit) * unusedTimeUnit / unusedTimeUnit);
+        int points = homeFilledPoints + unusedHalfSecondPoints * unusedTimeUnits;
+        IncreaseScore(points);
         OnScoreChange?.Invoke(this);
     }
 
