@@ -54,7 +54,11 @@ public class PlayerLives : MonoBehaviour
             if (Lives < 0) Lives = 0;
             else OnPlayerLoseLife?.Invoke(this);
 
-            if (Lives == 0) CheckGameOver();
+            if (Lives == 0)
+            {
+                CheckGameOver();
+                gameObject.SetActive(false);
+            }
         }
         return true;
     }
