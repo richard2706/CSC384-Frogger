@@ -1338,6 +1338,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6565548891951698640, guid: 9466112a0da088844a2ad55c81135511, type: 3}
+      propertyPath: profileID
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8280108692892974273, guid: 9466112a0da088844a2ad55c81135511, type: 3}
       propertyPath: m_Name
       value: SelectProfile3Button
@@ -2683,7 +2687,6 @@ GameObject:
   - component: {fileID: 1299691163}
   - component: {fileID: 1299691165}
   - component: {fileID: 1299691164}
-  - component: {fileID: 1299691166}
   m_Layer: 5
   m_Name: ProfilePanel
   m_TagString: Untagged
@@ -2754,18 +2757,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299691162}
   m_CullTransparentMesh: 1
---- !u!114 &1299691166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1299691162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9d584e395102784e9e2606b456c3232, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1300734060
 GameObject:
   m_ObjectHideFlags: 0
@@ -3627,6 +3618,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6565548891951698640, guid: 9466112a0da088844a2ad55c81135511, type: 3}
+      propertyPath: profileID
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8280108692892974273, guid: 9466112a0da088844a2ad55c81135511, type: 3}
       propertyPath: m_Name
       value: SelectProfile2Button
@@ -3724,17 +3719,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4802715204998607862, guid: 9466112a0da088844a2ad55c81135511, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+    - target: {fileID: 6565548891951698640, guid: 9466112a0da088844a2ad55c81135511, type: 3}
+      propertyPath: profileID
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802715204998607862, guid: 9466112a0da088844a2ad55c81135511, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802715204998607862, guid: 9466112a0da088844a2ad55c81135511, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8280108692892974273, guid: 9466112a0da088844a2ad55c81135511, type: 3}
       propertyPath: m_Name
