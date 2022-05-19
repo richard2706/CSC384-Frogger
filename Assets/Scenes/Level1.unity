@@ -1922,7 +1922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652a0d8e715660d49878e05b2044203b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usePowerUpKey: 303
+  usePowerUpKey: 47
 --- !u!1 &1084691077 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7972565624204002383, guid: 93b95f555264ec74c8ea2b0c2b1641a4, type: 3}
