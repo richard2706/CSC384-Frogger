@@ -5,19 +5,19 @@ using System.Collections.Generic;
 public class Profile
 {
     public int ProfileID { get; private set; }
-    public int CurrentLevel { get; private set; }
+    public int LevelsCompleted { get; private set; }
     public List<Achievement> Achievements { get; private set; }
 
     public Profile(int profileID)
     {
         ProfileID = profileID;
-        CurrentLevel = 1;
+        LevelsCompleted = 0;
         Achievements = new List<Achievement>();
     }
 
-    public void IncrementCurrentLevel()
+    public void IncrementLevelsCompleted()
     {
-        CurrentLevel++;
+        LevelsCompleted++;
     }
 
     public void AddAchievement(Achievement achievement)

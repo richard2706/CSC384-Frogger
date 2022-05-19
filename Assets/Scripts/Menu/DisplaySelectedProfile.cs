@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
-public class DisplaySelectedProfileText : MonoBehaviour
+public class DisplaySelectedProfile : MonoBehaviour
 {
     private const string selectedProfileFormat = "You have selected profile {0}";
 

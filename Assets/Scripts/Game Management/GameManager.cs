@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static Profile SelectedProfile { get; private set; }
     public static bool Multiplayer { get; set; }
 
+    public const int NumLevels = 3;
+
     private const int defaultProfileID = 1;
 
     private void Awake()
