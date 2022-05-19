@@ -10,53 +10,67 @@ public class Timer : MonoBehaviour
 
     [SerializeField] private int duration;
 
-    private PlayerLives[] allPlayersLives;
+    private PlayerManager[] allPlayers;
 
     private void Awake()
     {
         TimeRemaining = duration;
-        allPlayersLives = FindObjectsOfType<PlayerLives>();
+        allPlayers = FindObjectsOfType<PlayerManager>();
     }
 
     private void OnEnable()
     {
+        GameStateManager.OnLevelStart += PauseTimer;
+        FrogHome.OnFrogReachedHome += PauseTimer;
+        PlayerLives.OnPlayerLoseLife += PauseTimer;
+        PlayerManager.OnPlayerReady += RestartTimer;
         GameStateManager.OnLevelStart += RestartTimer;
-        FrogHome.OnFrogReachedHome += RestartTimer;
-        PlayerLives.OnPlayerLoseLife += RestartTimer;
     }
 
     private void OnDisable()
     {
+        GameStateManager.OnLevelStart -= PauseTimer;
+        FrogHome.OnFrogReachedHome -= PauseTimer;
+        PlayerLives.OnPlayerLoseLife -= PauseTimer;
+        PlayerManager.OnPlayerReady -= RestartTimer;
         GameStateManager.OnLevelStart -= RestartTimer;
-        FrogHome.OnFrogReachedHome -= RestartTimer;
-        PlayerLives.OnPlayerLoseLife += RestartTimer;
     }
 
-    private void RestartTimer(PlayerLives playerLives)
+    private void PauseTimer(PlayerLives playerLives)
     {
-        ExecuteRestartTimer();
+        ExecutePauseTimer();
+    }
+
+    private void PauseTimer()
+    {
+        ExecutePauseTimer();
+    }
+
+    private void ExecutePauseTimer()
+    {
+        StopAllCoroutines();
     }
 
     private void RestartTimer()
     {
-        ExecuteRestartTimer();
-    }
-
-    private void ExecuteRestartTimer()
-    {
-        StopAllCoroutines();
         StartCoroutine(StartTimer());
     }
 
-    private IEnumerator StartTimer() // fix issue with this being run once for each event
+    private IEnumerator StartTimer()
     {
         TimeRemaining = duration;
+        OnTimerUpdate?.Invoke(this);
 
         while (TimeRemaining > 0)
         {
             yield return new WaitForSecondsRealtime(0.5f);
             TimeRemaining -= 0.5f;
             OnTimerUpdate?.Invoke(this);
+        }
+
+        foreach (PlayerManager player in allPlayers)
+        {
+            player.PlayerLoseLife();
         }
     }
 }

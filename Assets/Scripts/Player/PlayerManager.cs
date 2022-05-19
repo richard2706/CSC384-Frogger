@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMovement)), RequireComponent(typeof(PlayerSpriteManager)), RequireComponent(typeof(PlayerLives))]
 public class PlayerManager : MonoBehaviour
 {
+    public static event Action OnPlayerReady;
+
     [SerializeField] private float loseLifeRestartDelay;
 
     private PlayerMovement playerMovement;
@@ -48,6 +50,7 @@ public class PlayerManager : MonoBehaviour
         playerMovement.ResetPosition();
         yield return new WaitForFixedUpdate();
         spriteManager.ShowFrogSprite();
+        OnPlayerReady?.Invoke();
     }
 
     private void StopOngoingPlayerActions()
