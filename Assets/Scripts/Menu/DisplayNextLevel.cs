@@ -9,12 +9,6 @@ public class DisplayNextLevel : MonoBehaviour
 
     private Text levelText;
 
-    public void UpdateNextLevelText(Profile selectedProfile)
-    {
-        int nextLevel = selectedProfile.GetNextLevel();
-        levelText.text = string.Format(nextLevelTextFormat, nextLevel);
-    }
-
     private void Awake()
     {
         levelText = GetComponent<Text>();
@@ -22,6 +16,7 @@ public class DisplayNextLevel : MonoBehaviour
 
     private void OnEnable()
     {
+        UpdateNextLevelText(GameManager.SelectedProfile);
         GameManager.OnProfileChanged += UpdateNextLevelText;
     }
 
@@ -32,6 +27,12 @@ public class DisplayNextLevel : MonoBehaviour
 
     private void Start()
     {
-        UpdateNextLevelText(GameManager.SelectedProfile);
+        //UpdateNextLevelText(GameManager.SelectedProfile);
+    }
+
+    private void UpdateNextLevelText(Profile selectedProfile)
+    {
+        int nextLevel = selectedProfile.GetNextLevel();
+        levelText.text = string.Format(nextLevelTextFormat, nextLevel);
     }
 }
