@@ -13,7 +13,7 @@ public class ProfileButton : MonoBehaviour
 
     private Button button;
     private Text buttonText;
-    private DisplayProfileLevelsCompleted levelsCompletedText;
+    private DisplayProfileDetails levelsCompletedText;
 
     public void Select()
     {
@@ -49,7 +49,7 @@ public class ProfileButton : MonoBehaviour
     {
         button = GetComponent<Button>();
         buttonText = GetComponentInChildren<Text>();
-        levelsCompletedText = GetComponentInChildren<DisplayProfileLevelsCompleted>();
+        levelsCompletedText = GetComponentInChildren<DisplayProfileDetails>();
         DisplayProfileInfo();
         Deselect();
     }

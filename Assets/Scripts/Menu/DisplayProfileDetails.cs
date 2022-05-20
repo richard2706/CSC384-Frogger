@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
-public class DisplayProfileLevelsCompleted : MonoBehaviour
+public class DisplayProfileDetails : MonoBehaviour
 {
     private const string levelsCompletedFormat = "{0} levels completed";
     private const string unknownLevelsCompletedText = "Empty profile";
