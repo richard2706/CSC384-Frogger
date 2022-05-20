@@ -14,6 +14,7 @@ public class MainMenuButtonHandler : MonoBehaviour
 
     public void RestartGame()
     {
+        Debug.Log("Multiplayer: " + GameManager.Multiplayer);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

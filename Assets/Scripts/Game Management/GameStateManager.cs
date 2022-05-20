@@ -56,6 +56,7 @@ public class GameStateManager : MonoBehaviour
         startLevelPanel.SetActive(true);
         winLevelPanel.SetActive(false);
         loseLevelPanel.SetActive(false);
+        Debug.Log("Multiplayer: " + GameManager.Multiplayer);
         if (GameManager.Multiplayer) EnableAll(livesIndicators);
 
         DisableAll(players);
@@ -84,8 +85,28 @@ public class GameStateManager : MonoBehaviour
     {
         startLevelPanel.SetActive(false);
 
-        if (GameManager.Multiplayer) EnableAll(players);
-        else players[0].gameObject.SetActive(true);
+        if (GameManager.Multiplayer)
+        {
+            Debug.Log("Start Multiplayer game");
+            EnableAll(players);
+        }
+        else
+        {
+            Debug.Log("Start single player game" + players.Length);
+            foreach (PlayerManager player in players)
+            {
+                if (player.IsPlayerOne())
+                {
+                    Debug.Log("Player 1 active");
+                    player.gameObject.SetActive(true);
+                }
+                else
+                {
+                    Debug.Log("Other player inactive");
+                    player.gameObject.SetActive(false);
+                }
+            }
+        }
 
         EnableAll(spawners);
         EnableAllBehaviours(frogHomeFlys);

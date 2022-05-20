@@ -2547,6 +2547,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7972565624204002424, guid: 93b95f555264ec74c8ea2b0c2b1641a4, type: 3}
+      propertyPath: isPlayerOne
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972565624204002424, guid: 93b95f555264ec74c8ea2b0c2b1641a4, type: 3}
       propertyPath: loseLifeRestartDelay
       value: 1
       objectReference: {fileID: 0}

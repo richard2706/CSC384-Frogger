@@ -8,10 +8,13 @@ public class PlayerManager : MonoBehaviour
     public static event Action OnPlayerReady;
 
     [SerializeField] private float loseLifeRestartDelay;
+    [SerializeField] private bool isPlayerOne;
 
     private PlayerMovement playerMovement;
     private PlayerSpriteManager spriteManager;
     private PlayerLives playerLives;
+
+    public bool IsPlayerOne() => isPlayerOne;
 
     private void Awake()
     {
