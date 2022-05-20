@@ -18,15 +18,17 @@ public class LivesUI : MonoBehaviour
 
     private void OnEnable()
     {
+        GameStateManager.OnLevelStart += DisplayLives;
         PlayerLives.OnPlayerLoseLife += DisplayLives;
     }
 
     private void OnDisable()
     {
+        GameStateManager.OnLevelStart -= DisplayLives;
         PlayerLives.OnPlayerLoseLife -= DisplayLives;
     }
 
-    private void Start()
+    private void DisplayLives()
     {
         DisplayLives(playerLives);
     }

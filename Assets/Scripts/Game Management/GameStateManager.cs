@@ -15,6 +15,7 @@ public class GameStateManager : MonoBehaviour
     private Spawner[] spawners;
     private FrogHomeFlys[] frogHomeFlys;
     private LivesUI[] livesIndicators;
+    private bool finalLevel;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class GameStateManager : MonoBehaviour
         spawners = FindObjectsOfType<Spawner>(true);
         frogHomeFlys = FindObjectsOfType<FrogHomeFlys>(true);
         livesIndicators = FindObjectsOfType<LivesUI>(true);
+        finalLevel = GameManager.NumLevels == SceneManager.GetActiveScene().buildIndex;
     }
 
     private void OnEnable()
@@ -48,7 +50,7 @@ public class GameStateManager : MonoBehaviour
     private void HandleWinLevel()
     {
         winLevelPanel.SetActive(true);
-        // load next level
+        StartCoroutine(WaitForNextLevel());
     }
 
     private void Start()
@@ -56,7 +58,6 @@ public class GameStateManager : MonoBehaviour
         startLevelPanel.SetActive(true);
         winLevelPanel.SetActive(false);
         loseLevelPanel.SetActive(false);
-        Debug.Log("Multiplayer: " + GameManager.Multiplayer);
         if (GameManager.Multiplayer) EnableAll(livesIndicators);
 
         DisableAll(players);
@@ -87,24 +88,13 @@ public class GameStateManager : MonoBehaviour
 
         if (GameManager.Multiplayer)
         {
-            Debug.Log("Start Multiplayer game");
             EnableAll(players);
         }
         else
         {
-            Debug.Log("Start single player game" + players.Length);
             foreach (PlayerManager player in players)
             {
-                if (player.IsPlayerOne())
-                {
-                    Debug.Log("Player 1 active");
-                    player.gameObject.SetActive(true);
-                }
-                else
-                {
-                    Debug.Log("Other player inactive");
-                    player.gameObject.SetActive(false);
-                }
+                player.gameObject.SetActive(player.IsPlayerOne());
             }
         }
 
@@ -129,6 +119,36 @@ public class GameStateManager : MonoBehaviour
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private IEnumerator WaitForNextLevel()
+    {
+        bool keyPressed = false;
+        while (!keyPressed)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                keyPressed = true;
+                NavigateToMenu();
+            }
+            else if (!finalLevel && Input.anyKeyDown)
+            {
+                keyPressed = true;
+                NavigateToNextLevel();
+            }
+            yield return null;
+        }
+    }
+
+    private void NavigateToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    private void NavigateToNextLevel()
+    {
+        if (finalLevel) return;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void EnableAll(MonoBehaviour[] objectBehaviours)
