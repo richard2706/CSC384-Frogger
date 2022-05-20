@@ -7,7 +7,7 @@ public class DisplayFinalScore : MonoBehaviour
     private const string scoreTextFormat = "Your score: {0}";
     [SerializeField] private ScoreManager score;
 
-    private void OnEnable()
+    private void Start()
     {
         GetComponent<Text>().text = string.Format(scoreTextFormat, score.Score.ToString());
     }
