@@ -20,6 +20,11 @@ public class Profile
         LevelsCompleted++;
     }
 
+    public int GetNextLevel()
+    {
+        return Math.Min(LevelsCompleted + 1, GameManager.NumLevels);
+    }
+
     public void AddAchievement(Achievement achievement)
     {
         Achievements.Add(achievement);

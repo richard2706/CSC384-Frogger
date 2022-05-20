@@ -11,7 +11,7 @@ public class DisplayNextLevel : MonoBehaviour
 
     public void UpdateNextLevelText(Profile selectedProfile)
     {
-        int nextLevel = Math.Min(selectedProfile.LevelsCompleted + 1, GameManager.NumLevels);
+        int nextLevel = selectedProfile.GetNextLevel();
         levelText.text = string.Format(nextLevelTextFormat, nextLevel);
     }
 

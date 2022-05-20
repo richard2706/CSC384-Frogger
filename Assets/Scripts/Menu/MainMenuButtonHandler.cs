@@ -9,7 +9,8 @@ public class MainMenuButtonHandler : MonoBehaviour
 
     public void ContinueGame()
     {
-        Debug.Log("Continue game");
+        int nextLevel = GameManager.SelectedProfile.GetNextLevel();
+        SceneManager.LoadScene(nextLevel);
     }
 
     public void RestartGame()

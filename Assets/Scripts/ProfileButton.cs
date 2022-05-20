@@ -50,7 +50,6 @@ public class ProfileButton : MonoBehaviour
         button = GetComponent<Button>();
         buttonText = GetComponentInChildren<Text>();
         levelsCompletedText = GetComponentInChildren<DisplayProfileDetails>();
-        DisplayProfileInfo();
         Deselect();
     }
 
@@ -66,6 +65,7 @@ public class ProfileButton : MonoBehaviour
 
     private void Start()
     {
+        DisplayProfileInfo();
         if (GameManager.SelectedProfile.ProfileID == profileID) Select();
     }
 
