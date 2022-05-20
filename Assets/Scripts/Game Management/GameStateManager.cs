@@ -15,7 +15,7 @@ public class GameStateManager : MonoBehaviour
     private Spawner[] spawners;
     private FrogHomeFlys[] frogHomeFlys;
     private LivesUI[] livesIndicators;
-    private bool finalLevel;
+    private bool isFinalLevel;
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class GameStateManager : MonoBehaviour
         spawners = FindObjectsOfType<Spawner>(true);
         frogHomeFlys = FindObjectsOfType<FrogHomeFlys>(true);
         livesIndicators = FindObjectsOfType<LivesUI>(true);
-        finalLevel = GameManager.NumLevels == SceneManager.GetActiveScene().buildIndex;
+        isFinalLevel = GameManager.NumLevels == SceneManager.GetActiveScene().buildIndex;
     }
 
     private void OnEnable()
@@ -50,6 +50,10 @@ public class GameStateManager : MonoBehaviour
     private void HandleWinLevel()
     {
         winLevelPanel.SetActive(true);
+
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        GameManager.SelectedProfile.UpdateLevelsCompleted(currentLevel);
+
         StartCoroutine(WaitForNextLevel());
     }
 
@@ -107,7 +111,12 @@ public class GameStateManager : MonoBehaviour
         bool keyPressed = false;
         while (!keyPressed)
         {
-            if (Input.anyKeyDown)
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                keyPressed = true;
+                NavigateToMenu();
+            }
+            else if (Input.anyKeyDown)
             {
                 keyPressed = true;
                 RestartLevel();
@@ -131,7 +140,7 @@ public class GameStateManager : MonoBehaviour
                 keyPressed = true;
                 NavigateToMenu();
             }
-            else if (!finalLevel && Input.anyKeyDown)
+            else if (Input.anyKeyDown)
             {
                 keyPressed = true;
                 NavigateToNextLevel();
@@ -147,8 +156,14 @@ public class GameStateManager : MonoBehaviour
 
     private void NavigateToNextLevel()
     {
-        if (finalLevel) return;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (isFinalLevel)
+        {
+            NavigateToMenu();
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     private void EnableAll(MonoBehaviour[] objectBehaviours)

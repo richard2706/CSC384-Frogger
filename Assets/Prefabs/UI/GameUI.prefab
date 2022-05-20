@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Text: 'You Lost...
 
 
-    Press Any Key To Continue'
+    Press esc for menu or any key to try again.'
 --- !u!1 &855162376375028079
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,7 +801,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: You Won!
+  m_Text: You Won! Press esc for menu or any key to continue.
 --- !u!1 &855162378082297537
 GameObject:
   m_ObjectHideFlags: 0

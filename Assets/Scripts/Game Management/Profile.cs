@@ -15,9 +15,10 @@ public class Profile
         Achievements = new List<Achievement>();
     }
 
-    public void IncrementLevelsCompleted()
+    public void UpdateLevelsCompleted(int level)
     {
-        LevelsCompleted++;
+        if (level > LevelsCompleted) LevelsCompleted = level;
+        SaveManager.SaveProfile(this);
     }
 
     public int GetNextLevel()
@@ -28,5 +29,6 @@ public class Profile
     public void AddAchievement(Achievement achievement)
     {
         Achievements.Add(achievement);
+        SaveManager.SaveProfile(this);
     }
 }
