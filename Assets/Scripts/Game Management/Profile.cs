@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
 public class Profile
@@ -37,7 +36,7 @@ public class Profile
         Achievement achievement = Achievement.GetAchievementByID(achievementID);
         if (achievement == null) return;
 
-        Achievements.Remove(achievement);
+        RemoveAchivement(achievementID);
         Achievements.Add(achievement, true);
         SaveManager.SaveProfile(this);
     }
@@ -49,5 +48,18 @@ public class Profile
 
         bool success = Achievements.TryGetValue(achievement, out bool hasAchivement);
         return success && hasAchivement;
+    }
+
+    private bool RemoveAchivement(int achievementID)
+    {
+        foreach (KeyValuePair<Achievement, bool> pair in Achievements)
+        {
+            if (pair.Key.ID == achievementID)
+            {
+                Achievements.Remove(pair.Key);
+                return true;
+            }
+        }
+        return false;
     }
 }

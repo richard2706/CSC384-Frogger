@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,11 +22,6 @@ public class DisplayNextLevel : MonoBehaviour
     private void OnDisable()
     {
         GameManager.OnProfileChanged -= UpdateNextLevelText;
-    }
-
-    private void Start()
-    {
-        //UpdateNextLevelText(GameManager.SelectedProfile);
     }
 
     private void UpdateNextLevelText(Profile selectedProfile)

@@ -7,21 +7,21 @@ public class AchievementManager : MonoBehaviour
 
     private void OnDisable()
     {
-        /*if (!currentProfile.HasAchievement(0))*/ FrogHome.OnFrogReachedHome -= UnlockCrossTheRiver;
-        /*if (!currentProfile.HasAchievement(1))*/ FrogHome.OnLevelWon -= UnlockCompleteFirstLevel;
-        /*if (!currentProfile.HasAchievement(4))*/ FrogHome.OnLevelWon -= UnlockCompleteAllLevels;
-        /*if (!currentProfile.HasAchievement(2))*/ FrogHomeFlys.OnFlyEaten -= UnlockEatAFly;
-        /*if (!currentProfile.HasAchievement(3))*/ ScoreManager.OnScoreChange -= UnlockScore3000;
+        if (!currentProfile.HasAchievement(0)) FrogHome.OnFrogReachedHome -= UnlockCrossTheRiver;
+        if (!currentProfile.HasAchievement(1)) FrogHome.OnLevelWon -= UnlockCompleteFirstLevel;
+        if (!currentProfile.HasAchievement(4)) FrogHome.OnLevelWon -= UnlockCompleteAllLevels;
+        if (!currentProfile.HasAchievement(2)) FrogHomeFlys.OnFlyEaten -= UnlockEatAFly;
+        if (!currentProfile.HasAchievement(3)) ScoreManager.OnScoreChange -= UnlockScore3000;
     }
 
     private void Start()
     {
         currentProfile = GameManager.SelectedProfile;
-        /*if (!currentProfile.HasAchievement(0))*/ FrogHome.OnFrogReachedHome += UnlockCrossTheRiver;
-        /*if (!currentProfile.HasAchievement(1))*/ FrogHome.OnLevelWon += UnlockCompleteFirstLevel;
-        /*if (!currentProfile.HasAchievement(4))*/ FrogHome.OnLevelWon += UnlockCompleteAllLevels;
-        /*if (!currentProfile.HasAchievement(2))*/ FrogHomeFlys.OnFlyEaten += UnlockEatAFly;
-        /*if (!currentProfile.HasAchievement(3))*/ ScoreManager.OnScoreChange += UnlockScore3000;
+        if (!currentProfile.HasAchievement(0)) FrogHome.OnFrogReachedHome += UnlockCrossTheRiver;
+        if (!currentProfile.HasAchievement(1)) FrogHome.OnLevelWon += UnlockCompleteFirstLevel;
+        if (!currentProfile.HasAchievement(4)) FrogHome.OnLevelWon += UnlockCompleteAllLevels;
+        if (!currentProfile.HasAchievement(2)) FrogHomeFlys.OnFlyEaten += UnlockEatAFly;
+        if (!currentProfile.HasAchievement(3)) ScoreManager.OnScoreChange += UnlockScore3000;
     }
 
     private void UnlockCrossTheRiver()

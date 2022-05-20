@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Text))]
@@ -28,11 +27,6 @@ public class DisplayAchievements : MonoBehaviour
         GameManager.OnProfileChanged -= UpdateAchivements;
     }
 
-    private void Start()
-    {
-        //UpdateAchivements(GameManager.SelectedProfile);
-    }
-
     private void UpdateAchivements(Profile selectedProfile)
     {
         string achivementsString = "";
@@ -40,7 +34,7 @@ public class DisplayAchievements : MonoBehaviour
         {
             string title = achievementEntry.Key.Title;
             string status = achievementEntry.Value ? achivementUnlockedText : achivementLockedText;
-            achivementsString += String.Format(achievementFormat, title, status);
+            achivementsString += string.Format(achievementFormat, title, status);
         }
         achievementsText.text = achivementsString;
     }

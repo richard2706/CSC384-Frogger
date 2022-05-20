@@ -33,8 +33,6 @@ public class Timer : MonoBehaviour
             FrogHome.OnFrogReachedHome += StopTimer;
             PlayerLives.OnPlayerLoseLife += StopTimer;
         }
-
-        //PlayerLives.OnLevelLost += ExecuteStopTimer;
     }
 
     private void OnDisable()
@@ -52,8 +50,6 @@ public class Timer : MonoBehaviour
             FrogHome.OnFrogReachedHome -= StopTimer;
             PlayerLives.OnPlayerLoseLife -= StopTimer;
         }
-
-        //PlayerLives.OnLevelLost -= ExecuteStopTimer;
     }
 
     private void StopTimer(PlayerLives playerLives)
